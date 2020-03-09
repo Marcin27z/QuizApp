@@ -10,13 +10,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.quizapp.R
+import com.example.quizapp.ui.popup.PopUp
 import kotlinx.android.synthetic.main.answer_fragment.*
 
-class AnswerFragment : Fragment() {
+class AnswerFragment : Fragment(), PopUp.OnTouchListener {
 
     companion object {
         fun newInstance() = AnswerFragment()
     }
+
+    private lateinit var popUp: PopUp
 
     private lateinit var viewModel: QuizViewModel
 
@@ -53,10 +56,19 @@ class AnswerFragment : Fragment() {
 
     private fun onWrongAnswerClick() {
         Toast.makeText(this.context, "Wrong Answer", Toast.LENGTH_LONG).show()
+        popUp = PopUp(activity!!.layoutInflater.inflate(R.layout.popup_window, null), activity!!)
+        popUp.show(this, "Wrong Answer")
     }
 
     private fun onCorrectAnswerClick() {
         Toast.makeText(this.context, "Correct Answer", Toast.LENGTH_LONG).show()
+        popUp = PopUp(activity!!.layoutInflater.inflate(R.layout.popup_window, null), activity!!)
+        popUp.show(this, "Correct Answer")
+    }
+
+    override fun tap() {
+        popUp.dismiss()
+        viewModel.nextQuestion()
     }
 
 }
