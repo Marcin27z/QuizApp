@@ -17,8 +17,8 @@ class LoginViewModel : ViewModel() {
 
     fun login(username: String, password: String) {
         val loginService = ServiceGenerator.createService(LoginService::class.java, username, password)
-        val call: Call<UserInfo?>? = loginService.basicLogin()
-        call?.enqueue(object: Callback<UserInfo?> {
+        val call: Call<UserInfo?> = loginService.basicLogin()
+        call.enqueue(object: Callback<UserInfo?> {
 
             override fun onResponse(call: Call<UserInfo?>, response: Response<UserInfo?> ) {
                 if (response.isSuccessful) {
