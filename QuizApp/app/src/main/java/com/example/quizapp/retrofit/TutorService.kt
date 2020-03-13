@@ -11,12 +11,12 @@ import retrofit2.http.Path
 interface TutorService {
 
 
-    @POST("/createSubject/{subjectName}")
+    @POST("/tutor/createSubject/{subjectName}")
     fun createSubject(@Path("subjectName") subjectName: String)
 
-    @POST("/addQuiz/{subjectName}")
+    @POST("/tutor/addQuiz/{subjectName}")
     fun addQuizToSubject(@Body quiz: Quiz, @Path("subjectName") subjectName: String)
 
-    @GET("/solutions/{quizName}")
+    @GET("/tutor/solutions/{quizName}")
     fun getSolutionsForQuiz(@Path("quizName") quizName: String): Call<List<SolutionInfo>?>?
 }

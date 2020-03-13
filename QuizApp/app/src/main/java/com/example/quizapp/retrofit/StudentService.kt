@@ -10,10 +10,10 @@ import retrofit2.http.Path
 
 interface StudentService {
 
-    @GET("/subscribe/{subjectName}")
+    @GET("/student/subscribe/{subjectName}")
     fun subscribeToSubject(@Path("subjectName") subjectName: String): Call<ResponseBody>
 
 
-    @POST("/quiz/solution")
+    @POST("/student/quiz/solution")
     fun submitSolution(@Body solutionDto: SolutionDto): Call<ResponseBody>
 }

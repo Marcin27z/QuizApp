@@ -7,5 +7,5 @@ import retrofit2.http.GET
 
 interface LoginService {
     @GET("/login")
-    fun basicLogin(): Call<UserInfo?>?
+    fun basicLogin(): Call<UserInfo?>
 }
