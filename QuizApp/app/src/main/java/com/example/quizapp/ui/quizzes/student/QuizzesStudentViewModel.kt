@@ -1,18 +1,16 @@
-package com.example.quizapp.ui.quizzes
+package com.example.quizapp.ui.quizzes.student
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.quizapp.dto.QuizInfo
-import com.example.quizapp.retrofit.QuizService
+import com.example.quizapp.retrofit.CommonService
 import com.example.quizapp.retrofit.ServiceGenerator
-import com.example.quizapp.ui.login.LoginResult
-import com.example.quizbackend.dto.UserInfo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class QuizzesViewModel : ViewModel() {
+class QuizzesStudentViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is tools Fragment"
@@ -22,9 +20,14 @@ class QuizzesViewModel : ViewModel() {
     private val _quizzes = MutableLiveData<List<QuizInfo>>()
     val quizzes: LiveData<List<QuizInfo>> = _quizzes
 
-    fun getQuizzes() {
-        val quizService = ServiceGenerator.createService(QuizService::class.java, "marcin1", "marcin1")
-        val call: Call<List<QuizInfo>?>? = quizService.getQuizzesInfo()
+    fun getQuizzes(subjectName: String? = null) {
+        val commonService = ServiceGenerator.createService(CommonService::class.java)
+        val call: Call<List<QuizInfo>?>? =
+        if (subjectName == null) {
+            commonService.getQuizzesInfo()
+        } else {
+            commonService.getQuizzesInfoForSubject(subjectName)
+        }
         call?.enqueue(object: Callback<List<QuizInfo>?> {
 
             override fun onResponse(call: Call<List<QuizInfo>?>, response: Response<List<QuizInfo>?>) {

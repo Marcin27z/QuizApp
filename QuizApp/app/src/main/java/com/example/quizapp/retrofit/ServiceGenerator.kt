@@ -8,7 +8,10 @@ import retrofit2.converter.jackson.JacksonConverterFactory
 
 
 object ServiceGenerator {
-    const val API_BASE_URL = "http://192.168.0.11:8080"
+    private var mUsername: String? = null
+    private var mPassword: String? = null
+
+    const val API_BASE_URL = "http://192.168.1.13:8080"
     private val httpClient = OkHttpClient.Builder()
     private val builder = Retrofit.Builder()
         .baseUrl(API_BASE_URL)
@@ -18,8 +21,13 @@ object ServiceGenerator {
         return createService(serviceClass, null, null)
     }
 
+    fun storeCredentials(username: String, password: String) {
+        mUsername = username
+        mPassword = password
+    }
+
     fun <S> createService(
-        serviceClass: Class<S>?, username: String?, password: String?
+        serviceClass: Class<S>?, username: String? = mUsername, password: String? = mPassword
     ): S {
         if (!TextUtils.isEmpty(username)
             && !TextUtils.isEmpty(password)

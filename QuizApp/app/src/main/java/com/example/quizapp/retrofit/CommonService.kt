@@ -18,6 +18,6 @@ interface CommonService {
     @GET("/common/quiz/{quizName}")
     fun getQuiz(@Path("quizName") quizName: String): Call<Quiz?>
 
-    @GET("/quiz/subject/{subjectName}")
+    @GET("/common/quiz/subject/{subjectName}")
     fun getQuizzesInfoForSubject(@Path("subjectName") subjectName: String): Call<List<QuizInfo>?>
 }

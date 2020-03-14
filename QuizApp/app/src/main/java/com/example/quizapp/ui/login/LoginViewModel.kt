@@ -22,7 +22,8 @@ class LoginViewModel : ViewModel() {
 
             override fun onResponse(call: Call<UserInfo?>, response: Response<UserInfo?> ) {
                 if (response.isSuccessful) {
-                    _loginResult.value = LoginResult(1, null)
+                    val user = response.body()
+                    _loginResult.value = LoginResult(1, null, user?.role)
                 } else {
                     _loginResult.value = LoginResult(null, 1)
                 }

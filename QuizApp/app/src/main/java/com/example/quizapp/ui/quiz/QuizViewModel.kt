@@ -41,7 +41,7 @@ class QuizViewModel(quizName: String) : ViewModel() {
     var correctAnswer = 0
 
     init {
-        val commonService = ServiceGenerator.createService(CommonService::class.java, "marcin1", "marcin1")
+        val commonService = ServiceGenerator.createService(CommonService::class.java)
         val call = commonService.getQuiz(quizName)
         call.enqueue(object: Callback<Quiz?> {
 

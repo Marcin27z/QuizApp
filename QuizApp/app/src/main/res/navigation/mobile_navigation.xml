@@ -3,18 +3,123 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.quizapp.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_quizzes"
-        android:name="com.example.quizapp.ui.quizzes.QuizzesFragment"
-        android:label="@string/menu_quizzes"
-        tools:layout="@layout/fragment_quizzes" />
+        android:id="@+id/loginFragment"
+        android:name="com.example.quizapp.ui.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeTutorFragment"
+            app:destination="@id/tutorNavigation" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeStudentFragment"
+            app:destination="@id/studentNavigation" />
+    </fragment>
+    <navigation
+        android:id="@+id/tutorNavigation"
+        app:startDestination="@id/homeTutorFragment" >
+        <fragment
+            android:id="@+id/quizzesTutorFragment"
+            android:name="com.example.quizapp.ui.quizzes.tutor.QuizzesTutorFragment"
+            android:label="QuizzesFragmentTutor"
+            tools:layout="@layout/fragment_quizzes_tutor" >
+            <argument
+                android:name="subjectName"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </fragment>
+        <fragment
+            android:id="@+id/subjectAddTutorFragment"
+            android:name="com.example.quizapp.ui.subject.add.tutor.SubjectAddTutorFragment"
+            android:label="subject_add_tutor_fragment"
+            tools:layout="@layout/subject_add_tutor_fragment" >
+            <action
+                android:id="@+id/action_subjectAddTutorFragment_to_subjectListTutorFragment"
+                app:destination="@id/subjectListTutorFragment"
+                app:popUpTo="@id/homeTutorFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/homeTutorFragment"
+            android:name="com.example.quizapp.ui.home.tutor.HomeTutorFragment"
+            android:label="HomeTutorFragment"
+            tools:layout="@layout/fragment_home">
+            <action
+                android:id="@+id/action_homeTutorFragment_to_loginFragment"
+                app:destination="@id/loginFragment" />
+            <action
+                android:id="@+id/action_homeTutorFragment_to_subjectListTutorFragment"
+                app:destination="@id/subjectListTutorFragment" />
+            <action
+                android:id="@+id/action_homeTutorFragment_to_quizzesTutorFragment"
+                app:destination="@id/quizzesTutorFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/subjectListTutorFragment"
+            android:name="com.example.quizapp.ui.subject.list.tutor.SubjectListTutorFragment"
+            android:label="subject_list_tutor_fragment"
+            tools:layout="@layout/subject_list_tutor_fragment">
+            <action
+                android:id="@+id/action_subjectListTutorFragment_to_quizzesTutorFragment"
+                app:destination="@id/quizzesTutorFragment" />
+            <action
+                android:id="@+id/action_subjectListTutorFragment_to_subjectAddTutorFragment"
+                app:destination="@id/subjectAddTutorFragment" />
+        </fragment>
+    </navigation>
+    <navigation
+        android:id="@+id/studentNavigation"
+        app:startDestination="@id/homeStudentFragment" >
+        <fragment
+            android:id="@+id/quizzesStudentFragment"
+            android:name="com.example.quizapp.ui.quizzes.student.QuizzesStudentFragment"
+            android:label="QuizzesFragmentStudent"
+            tools:layout="@layout/fragment_quizzes_student" >
+            <argument
+                android:name="subjectName"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </fragment>
+        <fragment
+            android:id="@+id/subjectListStudentFragment"
+            android:name="com.example.quizapp.ui.subject.list.student.SubjectListStudentFragment"
+            android:label="subject_list_student_fragment"
+            tools:layout="@layout/subject_list_student_fragment" >
+            <action
+                android:id="@+id/action_subjectListStudentFragment_to_quizzesStudentFragment"
+                app:destination="@id/quizzesStudentFragment" />
+            <action
+                android:id="@+id/action_subjectListStudentFragment_to_subjectAddStudentFragment"
+                app:destination="@id/subjectAddStudentFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/homeStudentFragment"
+            android:name="com.example.quizapp.ui.home.student.HomeStudentFragment"
+            android:label="@string/menu_home"
+            tools:layout="@layout/fragment_home">
+            <action
+                android:id="@+id/action_homeStudentFragment_to_loginFragment"
+                app:destination="@id/loginFragment" />
+            <action
+                android:id="@+id/action_homeStudentFragment_to_quizzesStudentFragment"
+                app:destination="@id/quizzesStudentFragment" />
+            <action
+                android:id="@+id/action_homeStudentFragment_to_subjectListStudentFragment"
+                app:destination="@id/subjectListStudentFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/subjectAddStudentFragment"
+            android:name="com.example.quizapp.ui.subject.add.student.SubjectAddStudentFragment"
+            android:label="subject_add_student_fragment"
+            tools:layout="@layout/subject_add_student_fragment" >
+            <action
+                android:id="@+id/action_subjectAddStudentFragment_to_subjectListStudentFragment"
+                app:destination="@id/subjectListStudentFragment"
+                app:popUpTo="@id/homeStudentFragment" />
+        </fragment>
+    </navigation>
 
 </navigation>
