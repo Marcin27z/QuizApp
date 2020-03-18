@@ -30,6 +30,9 @@
                 app:argType="string"
                 app:nullable="true"
                 android:defaultValue="@null" />
+            <action
+                android:id="@+id/action_quizzesTutorFragment_to_solutionsListTutorFragment"
+                app:destination="@id/solutionsListTutorFragment" />
         </fragment>
         <fragment
             android:id="@+id/subjectAddTutorFragment"
@@ -67,6 +70,15 @@
             <action
                 android:id="@+id/action_subjectListTutorFragment_to_subjectAddTutorFragment"
                 app:destination="@id/subjectAddTutorFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/solutionsListTutorFragment"
+            android:name="com.example.quizapp.ui.solutions.tutor.SolutionsListTutorFragment"
+            android:label="solutions_list_tutor_fragment"
+            tools:layout="@layout/solutions_list_tutor_fragment" >
+            <argument
+                android:name="quizName"
+                app:argType="string" />
         </fragment>
     </navigation>
     <navigation

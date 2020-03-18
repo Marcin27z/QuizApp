@@ -19,9 +19,9 @@ class SubjectListAdapter(private val subjectList: List<SubjectInfo>, private val
     }
 
     override fun onBindViewHolder(holder: SubjectViewHolder, position: Int) {
-        holder.itemView.title.text = subjectList[position].name
+        holder.itemView.subjectTitle.text = subjectList[position].name
         holder.itemView.setOnClickListener {
-            clickHandler(holder.itemView.title.text.toString())
+            clickHandler(holder.itemView.subjectTitle.text.toString())
         }
     }
 }

@@ -10,10 +10,14 @@ import com.example.quizapp.dto.QuizInfo
 import com.example.quizapp.ui.quiz.QuizActivity
 import kotlinx.android.synthetic.main.quizzes_recycler_item.view.*
 
-class QuizzesRecyclerAdapter(val quizzes: List<QuizInfo>): RecyclerView.Adapter<QuizViewHolder>() {
+class QuizzesRecyclerAdapter(
+    private val quizzes: List<QuizInfo>,
+    private val clickFunction: (String) -> Unit
+) : RecyclerView.Adapter<QuizViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuizViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.quizzes_recycler_item, parent, false) as ConstraintLayout
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.quizzes_recycler_item, parent, false) as ConstraintLayout
         return QuizViewHolder(view)
     }
 
@@ -25,15 +29,13 @@ class QuizzesRecyclerAdapter(val quizzes: List<QuizInfo>): RecyclerView.Adapter<
         holder.itemView.title.text = quizzes[position].name
         holder.itemView.subject.text = quizzes[position].subject
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, QuizActivity::class.java)
-            intent.putExtra("quizName", quizzes[position].name)
-            holder.itemView.context.startActivity(intent)
+            clickFunction(holder.itemView.title.text.toString())
         }
 
 
     }
 }
 
-class QuizViewHolder(itemView: ConstraintLayout): RecyclerView.ViewHolder(itemView) {
+class QuizViewHolder(itemView: ConstraintLayout) : RecyclerView.ViewHolder(itemView) {
 
 }

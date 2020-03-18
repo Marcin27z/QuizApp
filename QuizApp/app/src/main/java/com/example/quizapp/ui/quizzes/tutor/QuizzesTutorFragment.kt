@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizapp.R
 import com.example.quizapp.ui.quizzes.QuizzesRecyclerAdapter
@@ -31,7 +32,13 @@ class QuizzesTutorFragment : Fragment() {
         }
         quizzesViewModel.quizzes.observe(viewLifecycleOwner, Observer {
             root.quizzes_list.adapter =
-                QuizzesRecyclerAdapter(it)
+                QuizzesRecyclerAdapter(it) { quizName ->
+                    findNavController().navigate(
+                        QuizzesTutorFragmentDirections.actionQuizzesTutorFragmentToSolutionsListTutorFragment(
+                            quizName
+                        )
+                    )
+                }
         })
         return root
     }

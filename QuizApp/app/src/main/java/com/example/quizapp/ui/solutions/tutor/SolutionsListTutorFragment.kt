@@ -1,20 +1,18 @@
 package com.example.quizapp.ui.solutions.tutor
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.quizapp.R
+import kotlinx.android.synthetic.main.solutions_list_tutor_fragment.*
 
 class SolutionsListTutorFragment : Fragment() {
-
-    companion object {
-        fun newInstance() =
-            SolutionsListTutorFragment()
-    }
 
     private lateinit var viewModel: SolutionsListTutorViewModel
 
@@ -27,8 +25,15 @@ class SolutionsListTutorFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(SolutionsListTutorViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProvider(this).get(SolutionsListTutorViewModel::class.java)
+        viewModel.getSolutions(arguments?.getString("quizName")!!)
+        viewModel.solutions.observe(viewLifecycleOwner, Observer {
+            solutionsList.apply {
+                layoutManager = LinearLayoutManager(activity)
+                setHasFixedSize(true)
+                adapter = SolutionsListTutorAdapter(it)
+            }
+        })
     }
 
 }

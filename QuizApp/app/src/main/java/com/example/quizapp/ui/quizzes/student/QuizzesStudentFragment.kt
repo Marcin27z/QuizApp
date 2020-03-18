@@ -1,5 +1,6 @@
 package com.example.quizapp.ui.quizzes.student
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizapp.R
+import com.example.quizapp.ui.quiz.QuizActivity
 import com.example.quizapp.ui.quizzes.QuizzesRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_quizzes_student.view.*
 
@@ -31,7 +33,11 @@ class QuizzesStudentFragment : Fragment() {
         }
         quizzesViewModel.quizzes.observe(viewLifecycleOwner, Observer {
             root.quizzes_list.adapter =
-                QuizzesRecyclerAdapter(it)
+                QuizzesRecyclerAdapter(it) {quizName ->
+                    val intent = Intent(activity, QuizActivity::class.java)
+                    intent.putExtra("quizName", quizName)
+                    startActivity(intent)
+                }
         })
         return root
     }
