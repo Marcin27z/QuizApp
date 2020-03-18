@@ -1,5 +1,6 @@
 package com.example.quizapp.ui.solutions.tutor
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,8 +19,9 @@ class SolutionsListTutorAdapter(private val solutionsList: List<SolutionInfo>): 
         return solutionsList.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: SolutionTutorViewHolder, position: Int) {
-        holder.itemView.user.text = solutionsList[position].user
+        holder.itemView.user.text = "${solutionsList[position].name} ${solutionsList[position].surname}"
         holder.itemView.score.text = solutionsList[position].score.toString()
     }
 }
