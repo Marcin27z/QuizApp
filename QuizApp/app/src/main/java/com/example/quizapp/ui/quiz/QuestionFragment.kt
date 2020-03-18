@@ -45,7 +45,7 @@ class QuestionFragment : Fragment(), PopUp.OnTouchListener {
         })
 
         val onAnswerClickListener = View.OnClickListener {
-            if ((it as Button).text == viewModel.answers.value?.get(viewModel.correctAnswer)) {
+            if ((it as Button).text == viewModel.correctAnswer) {
                 onCorrectAnswerClick()
             } else {
                 onWrongAnswerClick()

@@ -6,5 +6,5 @@ class Question {
 
   lateinit var answers: List<String>
 
-  var correctAnswer: Int = 0
+  lateinit var correctAnswer: String
 }

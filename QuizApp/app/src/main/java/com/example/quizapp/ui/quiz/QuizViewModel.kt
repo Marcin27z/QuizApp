@@ -38,7 +38,7 @@ class QuizViewModel(quizName: String) : ViewModel() {
     }
     val quizStatus: LiveData<QuizStatus> = _quizStatus
 
-    var correctAnswer = 0
+    var correctAnswer: String? = null
 
     init {
         val commonService = ServiceGenerator.createService(CommonService::class.java)
@@ -70,7 +70,7 @@ class QuizViewModel(quizName: String) : ViewModel() {
     fun updateView(question: Int) {
         _question.value = quiz?.questions?.get(question)?.question
         _answers.value = quiz?.questions?.get(question)?.answers
-        correctAnswer = quiz?.questions?.get(question)?.correctAnswer ?: 0
+        correctAnswer = quiz?.questions?.get(question)?.correctAnswer
     }
 
     fun nextQuestion() {
