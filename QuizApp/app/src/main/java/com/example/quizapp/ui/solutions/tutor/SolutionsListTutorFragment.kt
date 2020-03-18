@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.quizapp.R
@@ -29,9 +30,10 @@ class SolutionsListTutorFragment : Fragment() {
         viewModel.getSolutions(arguments?.getString("quizName")!!)
         viewModel.solutions.observe(viewLifecycleOwner, Observer {
             solutionsList.apply {
-                layoutManager = LinearLayoutManager(activity)
+                layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter = SolutionsListTutorAdapter(it)
+                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
         })
     }

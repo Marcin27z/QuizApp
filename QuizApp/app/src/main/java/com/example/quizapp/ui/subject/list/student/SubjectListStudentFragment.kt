@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.quizapp.R
@@ -39,12 +40,13 @@ class SubjectListStudentFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(SubjectListStudentViewModel::class.java)
         viewModel.subjects.observe(viewLifecycleOwner, Observer {
             subjectList.apply {
-                layoutManager = LinearLayoutManager(this@SubjectListStudentFragment.context)
+                layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter =
                     SubjectListAdapter(it) { subjectName ->
                         findNavController().navigate(SubjectListStudentFragmentDirections.actionSubjectListStudentFragmentToQuizzesStudentFragment(subjectName))
                     }
+                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
         })
     }
