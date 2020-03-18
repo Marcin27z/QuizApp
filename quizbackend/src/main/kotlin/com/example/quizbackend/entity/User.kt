@@ -16,6 +16,10 @@ class User {
 
   lateinit var password: String
 
+  lateinit var name: String
+
+  lateinit var surname: String
+
   @Enumerated(EnumType.ORDINAL)
   lateinit var role: Role
 

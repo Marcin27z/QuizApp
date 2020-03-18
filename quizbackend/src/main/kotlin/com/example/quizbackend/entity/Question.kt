@@ -18,7 +18,7 @@ class Question {
   @ElementCollection
   lateinit var answers: List<String>
 
-  var correctAnswer: Int = 0
+  lateinit var correctAnswer: String
 
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)

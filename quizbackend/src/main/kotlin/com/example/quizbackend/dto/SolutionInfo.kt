@@ -6,4 +6,8 @@ class SolutionInfo(solution: Solution) {
   var score = solution.score
 
   var user = solution.user.username
+
+  var name = solution.user.name
+
+  var surname = solution.user.surname
 }
