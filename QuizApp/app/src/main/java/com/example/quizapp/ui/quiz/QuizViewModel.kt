@@ -87,7 +87,7 @@ class QuizViewModel(quizName: String) : ViewModel() {
     }
 
     private fun submitResult() {
-        val commonService = ServiceGenerator.createService(StudentService::class.java, "marcin1", "marcin1")
+        val commonService = ServiceGenerator.createService(StudentService::class.java)
         val call = commonService.submitSolution(SolutionDto().apply {
             quizName = quiz?.name ?: ""
             score = _points.value ?: 0
