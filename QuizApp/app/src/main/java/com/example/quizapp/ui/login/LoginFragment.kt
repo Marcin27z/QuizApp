@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
 import com.example.quizapp.retrofit.ServiceGenerator
-import com.example.quizbackend.dto.Role
+import com.example.quizapp.dto.Role
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
@@ -58,6 +58,9 @@ class LoginFragment : Fragment() {
         login.setOnClickListener {
             loginViewModel.login(username.text.toString(), password.text.toString())
         }
+        goToRegisterButton.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+        }
     }
 
     private fun updateUiWithUser(role: Role) {
@@ -69,7 +72,7 @@ class LoginFragment : Fragment() {
 //        startActivity(intent)
         if (role == Role.ROLE_STUDENT) {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeStudentFragment())
-        } else {
+        } else if (role == Role.ROLE_TUTOR){
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeTutorFragment())
         }
     }

@@ -1,4 +1,4 @@
-package com.example.quizbackend.dto
+package com.example.quizapp.dto
 
 class UserInfo {
 

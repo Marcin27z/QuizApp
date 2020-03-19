@@ -1,7 +1,7 @@
 package com.example.quizapp.retrofit
 
 import com.example.quizapp.dto.Quiz
-import com.example.quizbackend.dto.SolutionInfo
+import com.example.quizapp.dto.SolutionInfo
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body

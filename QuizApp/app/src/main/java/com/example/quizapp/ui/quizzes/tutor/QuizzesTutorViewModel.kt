@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.quizapp.dto.QuizInfo
 import com.example.quizapp.retrofit.CommonService
-import com.example.quizapp.retrofit.QuizService
 import com.example.quizapp.retrofit.ServiceGenerator
 import retrofit2.Call
 import retrofit2.Callback
