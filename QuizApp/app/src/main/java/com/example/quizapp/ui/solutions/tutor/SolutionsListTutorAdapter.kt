@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quizapp.R
-import com.example.quizbackend.dto.SolutionInfo
+import com.example.quizapp.dto.SolutionInfo
 import kotlinx.android.synthetic.main.solution_tutor_recycler_item.view.*
 
 class SolutionsListTutorAdapter(private val solutionsList: List<SolutionInfo>): RecyclerView.Adapter<SolutionTutorViewHolder>() {
@@ -21,8 +21,9 @@ class SolutionsListTutorAdapter(private val solutionsList: List<SolutionInfo>): 
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: SolutionTutorViewHolder, position: Int) {
-        holder.itemView.user.text = "${solutionsList[position].name} ${solutionsList[position].surname}"
-        holder.itemView.score.text = solutionsList[position].score.toString()
+        val solution = solutionsList[position]
+        holder.itemView.user.text = "${solution.name} ${solution.surname}"
+        holder.itemView.score.text = "${solution.score} / ${solution.maxScore}"
     }
 }
 

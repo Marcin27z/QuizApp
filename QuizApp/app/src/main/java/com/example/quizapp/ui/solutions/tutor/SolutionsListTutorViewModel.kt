@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.quizapp.retrofit.ServiceGenerator
 import com.example.quizapp.retrofit.TutorService
-import com.example.quizbackend.dto.SolutionInfo
+import com.example.quizapp.dto.SolutionInfo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,10 +23,12 @@ class SolutionsListTutorViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _solutions.value = response.body()
                 } else {
+                    print("Not successful")
                 }
             }
 
             override fun onFailure(call: Call<List<SolutionInfo>?>, t: Throwable) {
+                print("Failed")
             }
         })
     }
