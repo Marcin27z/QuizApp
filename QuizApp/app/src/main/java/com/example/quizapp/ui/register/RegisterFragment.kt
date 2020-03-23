@@ -1,6 +1,5 @@
 package com.example.quizapp.ui.register
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,16 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 
 import com.example.quizapp.R
+import com.example.quizapp.closeKeyboard
 import com.example.quizapp.dto.Role
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.register_fragment.*
 
 class RegisterFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = RegisterFragment()
-    }
 
     private lateinit var viewModel: RegisterViewModel
 
@@ -28,22 +28,8 @@ class RegisterFragment : Fragment() {
         return inflater.inflate(R.layout.register_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RegisterViewModel::class.java)
-        registerButton.setOnClickListener {
-            if (validateForm())
-                viewModel.register(
-                    nameEditText.text.toString(),
-                    surnameEditText.text.toString(),
-                    loginEditText.text.toString(),
-                    passwordEditText.text.toString(),
-                    if (roleRadioGroup.findViewById<RadioButton>(roleRadioGroup.checkedRadioButtonId).text.toString() == "Student") {
-                        Role.ROLE_STUDENT
-                    } else
-                        Role.ROLE_TUTOR
-                )
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         nameEditText.addTextChangedListener {
             if (it.toString() != "") {
                 nameLayout.error = null
@@ -77,6 +63,44 @@ class RegisterFragment : Fragment() {
         }
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+        registerButton.setOnClickListener {
+            if (validateForm())
+                closeKeyboard()
+                loading.visibility = View.VISIBLE
+                viewModel.register(
+                    nameEditText.text.toString(),
+                    surnameEditText.text.toString(),
+                    loginEditText.text.toString(),
+                    passwordEditText.text.toString(),
+                    if (roleRadioGroup.findViewById<RadioButton>(roleRadioGroup.checkedRadioButtonId).text.toString() == "Student") {
+                        Role.ROLE_STUDENT
+                    } else
+                        Role.ROLE_TUTOR
+                )
+        }
+        viewModel.registerResult.observe(viewLifecycleOwner, Observer {
+            loading.visibility = View.GONE
+            if (it.success != null) {
+                finishRegister()
+            }
+            if (it.error != null) {
+                showRegisterFailed()
+            }
+        })
+    }
+
+    private fun showRegisterFailed() {
+//        Toast.makeText(context, "Registration failed", Toast.LENGTH_LONG).show()
+        Snackbar.make(view!!, "Registration failed", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun finishRegister() {
+        findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+    }
+
     private fun validateForm(): Boolean {
         var error = false
         if (nameEditText.text.isNullOrEmpty()) {
@@ -105,6 +129,6 @@ class RegisterFragment : Fragment() {
             passwordRepeatLayout.error = "Passwords don't match"
             error = true
         }
-        return error
+        return !error
     }
 }

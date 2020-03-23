@@ -1,21 +1,25 @@
 package com.example.quizapp.ui.login
 
-import androidx.lifecycle.Observer
+import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
-import com.example.quizapp.retrofit.ServiceGenerator
+import com.example.quizapp.closeKeyboard
 import com.example.quizapp.dto.Role
+import com.example.quizapp.retrofit.ServiceGenerator
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
@@ -56,29 +60,28 @@ class LoginFragment : Fragment() {
         })
 
         login.setOnClickListener {
+            closeKeyboard()
+            loading.visibility = View.VISIBLE
             loginViewModel.login(username.text.toString(), password.text.toString())
         }
         goToRegisterButton.setOnClickListener {
+            closeKeyboard()
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }
     }
 
     private fun updateUiWithUser(role: Role) {
-//        val intent = Intent(this, MainActivity::class.java)
-//        val extras = Bundle()
-//        extras.putSerializable("role", role)
-//        intent.putExtras(extras)
         ServiceGenerator.storeCredentials(username.text.toString(), password.text.toString())
-//        startActivity(intent)
         if (role == Role.ROLE_STUDENT) {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeStudentFragment())
-        } else if (role == Role.ROLE_TUTOR){
+        } else if (role == Role.ROLE_TUTOR) {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeTutorFragment())
         }
     }
 
     private fun showLoginFailed() {
-        Toast.makeText(activity, "Cannot login", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(activity, "Cannot login", Toast.LENGTH_SHORT).show()
+        Snackbar.make(view!!, "Cannot login", Snackbar.LENGTH_SHORT).show()
     }
 }
 
