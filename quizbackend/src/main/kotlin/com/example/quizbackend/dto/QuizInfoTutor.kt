@@ -2,7 +2,7 @@ package com.example.quizbackend.dto
 
 import com.example.quizbackend.entity.Quiz
 
-class QuizInfo(quiz: Quiz, val solutionInfo: SolutionInfo?) {
+class QuizInfoTutor(quiz: Quiz) {
 
   var name: String = quiz.name
 

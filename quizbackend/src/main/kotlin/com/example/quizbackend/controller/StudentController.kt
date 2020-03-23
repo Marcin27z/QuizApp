@@ -2,6 +2,7 @@ package com.example.quizbackend.controller
 
 import com.example.quizbackend.dto.QuizInfo
 import com.example.quizbackend.dto.SolutionDto
+import com.example.quizbackend.dto.SolutionInfo
 import com.example.quizbackend.entity.Quiz
 import com.example.quizbackend.service.QuizService
 import com.example.quizbackend.service.SolutionService
@@ -39,4 +40,17 @@ class StudentController {
     solutionService.submitSolution(principal.name, solutionDto)
   }
 
+  @GetMapping("/quiz", produces = ["application/json"])
+  fun getQuizzesInfo(principal: Principal): List<QuizInfo> {
+    return quizService.getAllUsersQuizzesWithSolution(principal.name).map {
+      QuizInfo(it.first, it.second?.let { solution -> SolutionInfo(solution) } )
+    }
+  }
+
+  @GetMapping("/quiz/subject/{subjectName}")
+  fun getQuizzesInfoForSubject(principal: Principal, @PathVariable subjectName: String): List<QuizInfo> {
+    return quizService.getQuizzesWithSolutionForSubject(principal.name, subjectName).map {
+      QuizInfo(it.first, it.second?.let { solution -> SolutionInfo(solution)} )
+    }
+  }
 }

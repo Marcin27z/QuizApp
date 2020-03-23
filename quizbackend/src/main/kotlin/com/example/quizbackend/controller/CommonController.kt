@@ -1,6 +1,7 @@
 package com.example.quizbackend.controller
 
 import com.example.quizbackend.dto.QuizInfo
+import com.example.quizbackend.dto.SolutionInfo
 import com.example.quizbackend.dto.SubjectInfo
 import com.example.quizbackend.entity.Quiz
 import com.example.quizbackend.service.QuizService
@@ -29,23 +30,8 @@ class CommonController {
     }
   }
 
-  @GetMapping("/quiz", produces = ["application/json"])
-  fun getQuizzesInfo(principal: Principal): List<QuizInfo> {
-    return quizService.getAllUsersQuizzes(principal.name).map {
-      QuizInfo(it)
-    }
-  }
-
   @GetMapping("/quiz/{quizName}")
   fun getQuiz(@PathVariable quizName: String): Quiz? {
     return quizService.getQuizByName(quizName)
   }
-
-  @GetMapping("/quiz/subject/{subjectName}")
-  fun getQuizzesInfoForSubject(@PathVariable subjectName: String): List<QuizInfo> {
-    return quizService.getQuizzesForSubject(subjectName).map {
-      QuizInfo(it)
-    }
-  }
-
 }

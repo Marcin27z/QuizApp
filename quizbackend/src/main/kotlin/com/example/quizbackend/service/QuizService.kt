@@ -1,7 +1,11 @@
 package com.example.quizbackend.service
 
 import com.example.quizbackend.entity.Quiz
+import com.example.quizbackend.entity.Solution
+import com.example.quizbackend.entity.Subject
+import com.example.quizbackend.entity.User
 import com.example.quizbackend.repository.QuizRepository
+import com.example.quizbackend.repository.SolutionRepository
 import com.example.quizbackend.repository.SubjectRepository
 import com.example.quizbackend.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,6 +22,9 @@ class QuizService {
 
   @Autowired
   private lateinit var quizRepository: QuizRepository
+
+  @Autowired
+  private lateinit var solutionRepository: SolutionRepository
 
   fun addQuiz(quiz: Quiz, subjectName: String) {
     subjectRepository.findByName(subjectName)?.let {
@@ -44,6 +51,33 @@ class QuizService {
     val result = mutableSetOf<Quiz>()
     subjects?.forEach {
       result.addAll(it.quizzes)
+    }
+    return result
+  }
+
+  fun getQuizzesWithSolutionForSubject(userName: String, subjectName: String): Set<Pair<Quiz, Solution?>> {
+    return userRepository.findByUsername(userName)?.let {
+      getQuizzesWithSolutionForSubject(it, subjectRepository.findByName(subjectName))
+    } ?: emptySet()
+  }
+
+  fun getAllUsersQuizzesWithSolution(userName: String): Set<Pair<Quiz, Solution?>> {
+    val user = userRepository.findByUsername(userName)
+    val subjects =  user?.let {
+      subjectRepository.findAllByUsers(it)
+    }
+    val result = mutableSetOf<Pair<Quiz, Solution?>>()
+    subjects?.forEach { subject ->
+      result.addAll(getQuizzesWithSolutionForSubject(user, subject))
+    }
+    return result
+  }
+
+  fun getQuizzesWithSolutionForSubject(user: User, subject: Subject?): Set<Pair<Quiz, Solution?>> {
+    val result = mutableSetOf<Pair<Quiz, Solution?>>()
+    subject?.quizzes?.forEach { quiz ->
+      val quizSolution = solutionRepository.findByUserAndQuiz(user, quiz)
+      result.add(Pair(quiz, quizSolution))
     }
     return result
   }

@@ -23,12 +23,14 @@ class SolutionService {
   fun submitSolution(userName: String, solutionDto: SolutionDto) {
     userRepository.findByUsername(userName)?.let { user ->
       quizRepository.findByName(solutionDto.quizName)?.let { quiz ->
-        val solution = Solution().apply {
-          this.user = user
-          this.quiz = quiz
-          this.score = solutionDto.score
+        if (solutionRepository.findByUserAndQuiz(user, quiz) == null) {
+          val solution = Solution().apply {
+            this.user = user
+            this.quiz = quiz
+            this.score = solutionDto.score
+          }
+          solutionRepository.save(solution)
         }
-        solutionRepository.save(solution)
       }
     }
   }
