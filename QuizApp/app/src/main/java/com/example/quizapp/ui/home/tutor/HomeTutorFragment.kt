@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
-import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.fragment_home_tutor.view.*
 
 class HomeTutorFragment : Fragment() {
 
@@ -28,7 +28,7 @@ class HomeTutorFragment : Fragment() {
             })
         homeTutorViewModel =
             ViewModelProvider(this).get(HomeTutorViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val root = inflater.inflate(R.layout.fragment_home_tutor, container, false)
         root.quizzes.setOnClickListener {
                 findNavController().navigate(HomeTutorFragmentDirections.actionHomeTutorFragmentToQuizzesTutorFragment())
         }
