@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.quizapp.dto.QuizInfo
-import com.example.quizapp.retrofit.CommonService
 import com.example.quizapp.retrofit.ServiceGenerator
+import com.example.quizapp.retrofit.StudentService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,18 +21,18 @@ class QuizzesStudentViewModel : ViewModel() {
     val quizzes: LiveData<List<QuizInfo>> = _quizzes
 
     fun getQuizzes(subjectName: String? = null) {
-        val commonService = ServiceGenerator.createService(CommonService::class.java)
+        val studentService = ServiceGenerator.createService(StudentService::class.java)
         val call: Call<List<QuizInfo>?>? =
         if (subjectName == null) {
-            commonService.getQuizzesInfo()
+            studentService.getQuizzesInfo()
         } else {
-            commonService.getQuizzesInfoForSubject(subjectName)
+            studentService.getQuizzesInfoForSubject(subjectName)
         }
         call?.enqueue(object: Callback<List<QuizInfo>?> {
 
             override fun onResponse(call: Call<List<QuizInfo>?>, response: Response<List<QuizInfo>?>) {
                 if (response.isSuccessful) {
-                    _quizzes.value = response.body()
+                    _quizzes.value = response.body()?.filter { it.solutionInfo == null }
                 } else {
 
                 }

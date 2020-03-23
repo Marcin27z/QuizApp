@@ -11,7 +11,7 @@ object ServiceGenerator {
     private var mUsername: String? = null
     private var mPassword: String? = null
 
-    const val API_BASE_URL = "http://192.168.1.13:8080"
+    const val API_BASE_URL = "http://192.168.1.15:8080"
     private val httpClient = OkHttpClient.Builder()
     private val builder = Retrofit.Builder()
         .baseUrl(API_BASE_URL)

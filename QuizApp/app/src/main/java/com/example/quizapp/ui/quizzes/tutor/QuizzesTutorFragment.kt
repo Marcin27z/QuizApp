@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizapp.R
+import com.example.quizapp.dto.QuizInfo
 import com.example.quizapp.ui.quizzes.QuizzesRecyclerAdapter
 import com.example.quizapp.ui.quizzes.student.QuizzesStudentViewModel
 import kotlinx.android.synthetic.main.fragment_quizzes_tutor.view.*
@@ -34,7 +35,7 @@ class QuizzesTutorFragment : Fragment() {
         }
         quizzesViewModel.quizzes.observe(viewLifecycleOwner, Observer {
             root.quizzes_list.adapter =
-                QuizzesRecyclerAdapter(it) { quizName ->
+                QuizzesRecyclerAdapter(it.map { QuizInfo().apply { name = it.name; subject = it.subject }}) { quizName ->
                     findNavController().navigate(
                         QuizzesTutorFragmentDirections.actionQuizzesTutorFragmentToSolutionsListTutorFragment(
                             quizName

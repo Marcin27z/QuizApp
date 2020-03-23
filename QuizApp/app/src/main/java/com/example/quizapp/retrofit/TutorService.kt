@@ -1,6 +1,8 @@
 package com.example.quizapp.retrofit
 
 import com.example.quizapp.dto.Quiz
+import com.example.quizapp.dto.QuizInfo
+import com.example.quizapp.dto.QuizInfoTutor
 import com.example.quizapp.dto.SolutionInfo
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -20,4 +22,10 @@ interface TutorService {
 
     @GET("/tutor/solutions/{quizName}")
     fun getSolutionsForQuiz(@Path("quizName") quizName: String): Call<List<SolutionInfo>?>
+
+    @GET("/tutor/quiz")
+    fun getQuizzesInfo(): Call<List<QuizInfoTutor>?>
+
+    @GET("/tutor/quiz/subject/{subjectName}")
+    fun getQuizzesInfoForSubject(@Path("subjectName") subjectName: String): Call<List<QuizInfoTutor>?>
 }

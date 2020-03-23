@@ -1,11 +1,9 @@
 package com.example.quizapp.dto
 
-open class QuizInfo {
+class QuizInfoTutor {
 
   lateinit var name: String
 
   lateinit var subject: String
-
-  var solutionInfo: SolutionInfo? = null
 
 }
