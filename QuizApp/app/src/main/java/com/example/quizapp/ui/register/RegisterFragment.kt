@@ -67,7 +67,7 @@ class RegisterFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
         registerButton.setOnClickListener {
-            if (validateForm())
+            if (validateForm()) {
                 closeKeyboard()
                 loading.visibility = View.VISIBLE
                 viewModel.register(
@@ -80,6 +80,7 @@ class RegisterFragment : Fragment() {
                     } else
                         Role.ROLE_TUTOR
                 )
+            }
         }
         viewModel.registerResult.observe(viewLifecycleOwner, Observer {
             loading.visibility = View.GONE
