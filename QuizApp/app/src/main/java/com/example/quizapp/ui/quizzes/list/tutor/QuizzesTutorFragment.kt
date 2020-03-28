@@ -1,4 +1,4 @@
-package com.example.quizapp.ui.quizzes.tutor
+package com.example.quizapp.ui.quizzes.list.tutor
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizapp.R
 import com.example.quizapp.dto.QuizInfo
-import com.example.quizapp.ui.quizzes.QuizzesRecyclerAdapter
-import com.example.quizapp.ui.quizzes.student.QuizzesStudentViewModel
+import com.example.quizapp.ui.quizzes.list.QuizzesRecyclerAdapter
+import kotlinx.android.synthetic.main.app_bar_quiz.view.*
 import kotlinx.android.synthetic.main.fragment_quizzes_tutor.view.*
 
 class QuizzesTutorFragment : Fragment() {
@@ -35,7 +35,11 @@ class QuizzesTutorFragment : Fragment() {
         }
         quizzesViewModel.quizzes.observe(viewLifecycleOwner, Observer {
             root.quizzes_list.adapter =
-                QuizzesRecyclerAdapter(it.map { QuizInfo().apply { name = it.name; subject = it.subject }}) { quizName ->
+                QuizzesRecyclerAdapter(it.map {
+                    QuizInfo().apply {
+                        name = it.name; subject = it.subject
+                    }
+                }) { quizName ->
                     findNavController().navigate(
                         QuizzesTutorFragmentDirections.actionQuizzesTutorFragmentToSolutionsListTutorFragment(
                             quizName
@@ -43,6 +47,9 @@ class QuizzesTutorFragment : Fragment() {
                     )
                 }
         })
+        root.addQuizButton.setOnClickListener {
+            findNavController().navigate(QuizzesTutorFragmentDirections.actionQuizzesTutorFragmentToAddQuizTutorFragment())
+        }
         return root
     }
 

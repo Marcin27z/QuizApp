@@ -2,9 +2,9 @@ package com.example.quizapp.dto
 
 class Question {
 
-  lateinit var question: String
+  var question: String = ""
 
-  lateinit var answers: List<String>
+  var answers: MutableList<String> = arrayListOf("", "", "", "")
 
-  lateinit var correctAnswer: String
+  var correctAnswer: String = ""
 }

@@ -25,7 +25,7 @@
         app:startDestination="@id/homeTutorFragment" >
         <fragment
             android:id="@+id/quizzesTutorFragment"
-            android:name="com.example.quizapp.ui.quizzes.tutor.QuizzesTutorFragment"
+            android:name="com.example.quizapp.ui.quizzes.list.tutor.QuizzesTutorFragment"
             android:label="QuizzesFragmentTutor"
             tools:layout="@layout/fragment_quizzes_tutor" >
             <argument
@@ -36,6 +36,9 @@
             <action
                 android:id="@+id/action_quizzesTutorFragment_to_solutionsListTutorFragment"
                 app:destination="@id/solutionsListTutorFragment" />
+            <action
+                android:id="@+id/action_quizzesTutorFragment_to_addQuizTutorFragment"
+                app:destination="@id/addQuizTutorFragment" />
         </fragment>
         <fragment
             android:id="@+id/subjectAddTutorFragment"
@@ -83,13 +86,18 @@
                 android:name="quizName"
                 app:argType="string" />
         </fragment>
+        <fragment
+            android:id="@+id/addQuizTutorFragment"
+            android:name="com.example.quizapp.ui.quizzes.add.tutor.AddQuizTutorFragment"
+            android:label="add_quiz_tutor_fragment"
+            tools:layout="@layout/add_quiz_tutor_fragment" />
     </navigation>
     <navigation
         android:id="@+id/studentNavigation"
         app:startDestination="@id/homeStudentFragment" >
         <fragment
             android:id="@+id/quizzesStudentFragment"
-            android:name="com.example.quizapp.ui.quizzes.student.QuizzesStudentFragment"
+            android:name="com.example.quizapp.ui.quizzes.list.student.QuizzesStudentFragment"
             android:label="QuizzesFragmentStudent"
             tools:layout="@layout/fragment_quizzes_student" >
             <argument

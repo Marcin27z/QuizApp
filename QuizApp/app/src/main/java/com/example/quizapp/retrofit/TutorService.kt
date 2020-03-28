@@ -1,9 +1,6 @@
 package com.example.quizapp.retrofit
 
-import com.example.quizapp.dto.Quiz
-import com.example.quizapp.dto.QuizInfo
-import com.example.quizapp.dto.QuizInfoTutor
-import com.example.quizapp.dto.SolutionInfo
+import com.example.quizapp.dto.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -18,7 +15,7 @@ interface TutorService {
     fun createSubject(@Path("subjectName") subjectName: String): Call<ResponseBody>
 
     @POST("/tutor/addQuiz/{subjectName}")
-    fun addQuizToSubject(@Body quiz: Quiz, @Path("subjectName") subjectName: String): Call<ResponseBody>
+    fun addQuizToSubject(@Body quiz: QuizDto, @Path("subjectName") subjectName: String): Call<ResponseBody>
 
     @GET("/tutor/solutions/{quizName}")
     fun getSolutionsForQuiz(@Path("quizName") quizName: String): Call<List<SolutionInfo>?>

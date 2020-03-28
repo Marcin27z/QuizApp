@@ -1,4 +1,4 @@
-package com.example.quizapp.ui.quizzes.student
+package com.example.quizapp.ui.quizzes.list.student
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,12 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizapp.R
 import com.example.quizapp.ui.quiz.QuizActivity
-import com.example.quizapp.ui.quizzes.QuizzesRecyclerAdapter
+import com.example.quizapp.ui.quizzes.list.QuizzesRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_quizzes_student.view.*
 
 class QuizzesStudentFragment : Fragment() {

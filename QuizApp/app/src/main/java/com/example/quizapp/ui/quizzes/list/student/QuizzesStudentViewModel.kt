@@ -1,4 +1,4 @@
-package com.example.quizapp.ui.quizzes.student
+package com.example.quizapp.ui.quizzes.list.student
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

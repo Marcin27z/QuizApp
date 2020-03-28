@@ -1,13 +1,11 @@
-package com.example.quizapp.ui.quizzes
+package com.example.quizapp.ui.quizzes.list
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quizapp.R
 import com.example.quizapp.dto.QuizInfo
-import com.example.quizapp.ui.quiz.QuizActivity
 import kotlinx.android.synthetic.main.quizzes_recycler_item.view.*
 
 class QuizzesRecyclerAdapter(
