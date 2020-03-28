@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.quizapp.R
 import com.example.quizapp.dto.Question
 import com.example.quizapp.dto.QuizDto
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.add_quiz_tutor_fragment.*
 
 class AddQuizTutorFragment : Fragment() {
@@ -59,6 +61,14 @@ class AddQuizTutorFragment : Fragment() {
             val subject = subjectDropdown.text.toString()
             viewModel.addQuiz(quiz, subject)
         }
+
+        viewModel.addQuizResult.observe(viewLifecycleOwner, Observer {
+            if (it.success != null) {
+                findNavController().navigate(AddQuizTutorFragmentDirections.actionAddQuizTutorFragmentToQuizzesTutorFragment())
+            } else if (it.error != null) {
+                Snackbar.make(view!!, "Cannot add quiz", Snackbar.LENGTH_SHORT).show()
+            }
+        })
 
     }
 

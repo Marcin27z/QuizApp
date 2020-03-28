@@ -90,7 +90,11 @@
             android:id="@+id/addQuizTutorFragment"
             android:name="com.example.quizapp.ui.quizzes.add.tutor.AddQuizTutorFragment"
             android:label="add_quiz_tutor_fragment"
-            tools:layout="@layout/add_quiz_tutor_fragment" />
+            tools:layout="@layout/add_quiz_tutor_fragment" >
+            <action
+                android:id="@+id/action_addQuizTutorFragment_to_quizzesTutorFragment"
+                app:destination="@id/quizzesTutorFragment" />
+        </fragment>
     </navigation>
     <navigation
         android:id="@+id/studentNavigation"
