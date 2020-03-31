@@ -36,7 +36,7 @@ class HomeStudentFragment : Fragment() {
             findNavController().navigate(HomeStudentFragmentDirections.actionHomeStudentFragmentToSubjectListStudentFragment())
         }
         root.logOut.setOnClickListener {
-            findNavController().navigate(HomeStudentFragmentDirections.actionHomeStudentFragmentToLoginFragment())
+            findNavController().navigate(HomeStudentFragmentDirections.actionHomeStudentFragmentToLoginFragment(false))
         }
         root.resultsButton.setOnClickListener {
             findNavController().navigate(HomeStudentFragmentDirections.actionHomeStudentFragmentToSolutionsListStudentFragment())
