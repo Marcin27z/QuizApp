@@ -10,11 +10,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.quizapp.R
 import com.example.quizapp.dto.QuizInfo
 import com.example.quizapp.ui.quizzes.list.QuizzesRecyclerAdapter
-import kotlinx.android.synthetic.main.app_bar_quiz.view.*
 import kotlinx.android.synthetic.main.fragment_quizzes_tutor.view.*
+
 
 class QuizzesTutorFragment : Fragment() {
 
@@ -50,6 +51,17 @@ class QuizzesTutorFragment : Fragment() {
         root.addQuizButton.setOnClickListener {
             findNavController().navigate(QuizzesTutorFragmentDirections.actionQuizzesTutorFragmentToAddQuizTutorFragment())
         }
+
+//        root.quizzes_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                if (dy > 0 && root.addQuizButton.getVisibility() == View.VISIBLE) {
+//                    root.addQuizButton.hide()
+//                } else if (dy < 0 && root.addQuizButton.getVisibility() != View.VISIBLE) {
+//                    root.addQuizButton.show()
+//                }
+//            }
+//        })
         return root
     }
 

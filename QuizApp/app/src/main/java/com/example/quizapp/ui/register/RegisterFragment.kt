@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -30,6 +31,15 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).apply {
+            setSupportActionBar(toolbar)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setDisplayShowHomeEnabled(true)
+            toolbar.setNavigationOnClickListener {
+                onBackPressed()
+            }
+        }
+
         nameEditText.addTextChangedListener {
             if (it.toString() != "") {
                 nameLayout.error = null
@@ -62,6 +72,7 @@ class RegisterFragment : Fragment() {
             }
         }
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -119,14 +130,14 @@ class RegisterFragment : Fragment() {
         if (passwordEditText.text.isNullOrEmpty()) {
             passwordLayout.error = "Please fill password"
             error = true
-        } else if (passwordEditText.text.toString() != passwordRepeatEditText.text.toString()){
+        } else if (passwordEditText.text.toString() != passwordRepeatEditText.text.toString()) {
             passwordLayout.error = "Passwords don't match"
             error = true
         }
         if (passwordRepeatEditText.text.isNullOrEmpty()) {
             passwordRepeatLayout.error = "Please fill repeat password"
             error = true
-        } else if (passwordEditText.text.toString() != passwordRepeatEditText.text.toString()){
+        } else if (passwordEditText.text.toString() != passwordRepeatEditText.text.toString()) {
             passwordRepeatLayout.error = "Passwords don't match"
             error = true
         }

@@ -93,7 +93,8 @@
             tools:layout="@layout/add_quiz_tutor_fragment" >
             <action
                 android:id="@+id/action_addQuizTutorFragment_to_quizzesTutorFragment"
-                app:destination="@id/quizzesTutorFragment" />
+                app:destination="@id/quizzesTutorFragment"
+                app:popUpTo="@id/homeTutorFragment" />
         </fragment>
     </navigation>
     <navigation
