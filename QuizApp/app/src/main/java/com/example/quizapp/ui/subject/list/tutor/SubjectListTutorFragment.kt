@@ -1,19 +1,22 @@
 package com.example.quizapp.ui.subject.list.tutor
 
 import android.os.Bundle
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.quizapp.MainActivity
 
 import com.example.quizapp.R
 import com.example.quizapp.ui.subject.list.SubjectListAdapter
+import kotlinx.android.synthetic.main.fragment_quizzes_tutor.*
+import kotlinx.android.synthetic.main.fragment_quizzes_tutor.view.*
 import kotlinx.android.synthetic.main.subject_list_student_fragment.*
 import kotlinx.android.synthetic.main.subject_list_student_fragment.subjectList
 
@@ -25,7 +28,9 @@ class SubjectListTutorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.subject_list_tutor_fragment, container, false)
+        val root = inflater.inflate(R.layout.subject_list_tutor_fragment, container, false)
+        setHasOptionsMenu(true)
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,6 +38,16 @@ class SubjectListTutorFragment : Fragment() {
         addSubjectButton.setOnClickListener {
             findNavController().navigate(SubjectListTutorFragmentDirections.actionSubjectListTutorFragmentToSubjectAddTutorFragment())
         }
+        subjectList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0 && addSubjectButton.visibility == View.VISIBLE) {
+                    addSubjectButton.hide()
+                } else if (dy < 0 && addSubjectButton.visibility != View.VISIBLE) {
+                    addSubjectButton.show()
+                }
+            }
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -49,6 +64,30 @@ class SubjectListTutorFragment : Fragment() {
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
         })
+        val mainActivity = (activity as MainActivity)
+        mainActivity.setSupportActionBar(toolbar)
+        mainActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            mainActivity.onBackPressed()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_menu, menu)
+        val menuItem = menu.findItem(R.id.action_search)
+        val searchView = menuItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                (subjectList.adapter as SubjectListAdapter).filter.filter(newText)
+                return true
+            }
+        })
+        return super.onCreateOptionsMenu(menu, inflater)
     }
 
 }

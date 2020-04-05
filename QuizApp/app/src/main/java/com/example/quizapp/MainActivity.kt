@@ -1,18 +1,32 @@
 package com.example.quizapp
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.auth.api.credentials.Credential
+import androidx.navigation.findNavController
+import com.google.firebase.messaging.FirebaseMessaging
 
 
 class MainActivity : AppCompatActivity() {
 
+    val navController by lazy { findNavController(R.id.nav_host_fragment) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        intent.getStringExtra("topic")?.let {
+            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+        }
+        intent.getStringExtra("quiz")?.let {
+            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+        }
+        navController.setGraph(R.navigation.mobile_navigation, intent.extras)
+        FirebaseMessaging.getInstance().subscribeToTopic("Math")
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                }
+            }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

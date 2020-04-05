@@ -12,7 +12,7 @@ object ServiceGenerator {
     private var mPassword: String? = null
 
     const val API_BASE_URL = "http://192.168.1.15:8080"
-    private val httpClient = OkHttpClient.Builder()
+    private val httpClient = OkHttpClient().newBuilder()
     private val builder = Retrofit.Builder()
         .baseUrl(API_BASE_URL)
         .addConverterFactory(JacksonConverterFactory.create())

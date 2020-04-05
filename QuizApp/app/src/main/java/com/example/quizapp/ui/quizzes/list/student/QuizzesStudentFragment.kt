@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizapp.R
@@ -24,6 +26,14 @@ class QuizzesStudentFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        requireActivity().onBackPressedDispatcher.addCallback(this,
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().navigate(QuizzesStudentFragmentDirections.actionQuizzesStudentFragmentToHomeStudentFragment())
+                }
+            })
+
         quizzesViewModel =
             ViewModelProvider(this).get(QuizzesStudentViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_quizzes_student, container, false)

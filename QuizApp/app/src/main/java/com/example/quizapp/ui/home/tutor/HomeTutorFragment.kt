@@ -36,7 +36,7 @@ class HomeTutorFragment : Fragment() {
                 findNavController().navigate(HomeTutorFragmentDirections.actionHomeTutorFragmentToSubjectListTutorFragment())
         }
         root.logOut.setOnClickListener {
-            findNavController().navigate(HomeTutorFragmentDirections.actionHomeTutorFragmentToLoginFragment(false))
+            findNavController().navigate(HomeTutorFragmentDirections.actionHomeTutorFragmentToLoginFragment(false, null, null))
         }
         return root
     }

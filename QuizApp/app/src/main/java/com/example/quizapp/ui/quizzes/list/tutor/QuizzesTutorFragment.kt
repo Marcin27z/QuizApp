@@ -1,9 +1,8 @@
 package com.example.quizapp.ui.quizzes.list.tutor
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,10 +10,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.quizapp.MainActivity
 import com.example.quizapp.R
 import com.example.quizapp.dto.QuizInfo
 import com.example.quizapp.ui.quizzes.list.QuizzesRecyclerAdapter
+import kotlinx.android.synthetic.main.fragment_quizzes_tutor.*
 import kotlinx.android.synthetic.main.fragment_quizzes_tutor.view.*
+import kotlinx.android.synthetic.main.fragment_quizzes_tutor.view.quizzes_list
 
 
 class QuizzesTutorFragment : Fragment() {
@@ -52,21 +54,50 @@ class QuizzesTutorFragment : Fragment() {
             findNavController().navigate(QuizzesTutorFragmentDirections.actionQuizzesTutorFragmentToAddQuizTutorFragment())
         }
 
-//        root.quizzes_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                if (dy > 0 && root.addQuizButton.getVisibility() == View.VISIBLE) {
-//                    root.addQuizButton.hide()
-//                } else if (dy < 0 && root.addQuizButton.getVisibility() != View.VISIBLE) {
-//                    root.addQuizButton.show()
-//                }
-//            }
-//        })
+        root.quizzes_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0 && root.addQuizButton.visibility == View.VISIBLE) {
+                    root.addQuizButton.hide()
+                } else if (dy < 0 && root.addQuizButton.visibility != View.VISIBLE) {
+                    root.addQuizButton.show()
+                }
+            }
+        })
+        setHasOptionsMenu(true)
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         quizzesViewModel.getQuizzes(arguments?.getString("subjectName"))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_menu, menu)
+        val menuItem = menu.findItem(R.id.action_search)
+        val searchView = menuItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                (quizzes_list.adapter as QuizzesRecyclerAdapter).filter.filter(newText)
+                return true
+            }
+        })
+        return super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val mainActivity = (activity as MainActivity)
+        mainActivity.setSupportActionBar(toolbar)
+        mainActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            mainActivity.onBackPressed()
+        }
     }
 }

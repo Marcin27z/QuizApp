@@ -31,14 +31,14 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).apply {
-            setSupportActionBar(toolbar)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            supportActionBar?.setDisplayShowHomeEnabled(true)
-            toolbar.setNavigationOnClickListener {
-                onBackPressed()
-            }
+        val activity = (activity as AppCompatActivity)
+        activity.setSupportActionBar(toolbar)
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        activity.supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            activity.onBackPressed()
         }
+
 
         nameEditText.addTextChangedListener {
             if (it.toString() != "") {
@@ -110,7 +110,7 @@ class RegisterFragment : Fragment() {
     }
 
     private fun finishRegister() {
-        findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+        findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(false, null, null))
     }
 
     private fun validateForm(): Boolean {

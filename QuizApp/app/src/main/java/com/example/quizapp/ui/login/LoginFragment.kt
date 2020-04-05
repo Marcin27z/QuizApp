@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.quizapp.CredentialsManager
 import com.example.quizapp.MainActivity
 import com.example.quizapp.R
@@ -33,6 +34,8 @@ class LoginFragment : Fragment() {
 
     private val RC_READ = 1337
     private val RC_SAVE = 1338
+
+    private val args by navArgs<LoginFragmentArgs>()
 
     private lateinit var loginViewModel: LoginViewModel
 
@@ -100,7 +103,7 @@ class LoginFragment : Fragment() {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }
 
-        if (arguments?.getBoolean("autoLogin") != false) {
+        if (args.autoLogin) {
             mCredentialsManager.attemptAutoLogin()
         }
     }
@@ -111,7 +114,7 @@ class LoginFragment : Fragment() {
             mCredentialsManager.saveCredentials(username.text.toString(), password.text.toString())
         }
         if (role == Role.ROLE_STUDENT) {
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeStudentFragment())
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeStudentFragment(args.quiz, args.topic))
         } else if (role == Role.ROLE_TUTOR) {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeTutorFragment())
         }
