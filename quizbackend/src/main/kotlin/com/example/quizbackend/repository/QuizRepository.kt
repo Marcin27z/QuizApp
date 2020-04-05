@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository
 
 interface QuizRepository: CrudRepository<Quiz, Long> {
 
-  fun findAllBySubject(subject: Subject): Set<Quiz>
+  fun findAllBySubject(subject: Subject): List<Quiz>
 
   fun findByName(name: String): Quiz?
 }

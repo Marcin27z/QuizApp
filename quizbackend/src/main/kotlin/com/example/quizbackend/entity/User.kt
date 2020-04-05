@@ -24,10 +24,10 @@ class User {
   lateinit var role: Role
 
   @ManyToMany(mappedBy = "users")
-  lateinit var subjects: MutableSet<Subject>
+  lateinit var subjects: List<Subject>
 
   @OneToMany(mappedBy = "user")
-  lateinit var solutions: MutableSet<Solution>
+  lateinit var solutions: List<Solution>
 
 }
 

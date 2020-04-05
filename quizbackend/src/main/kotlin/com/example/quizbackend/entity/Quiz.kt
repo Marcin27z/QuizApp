@@ -13,15 +13,15 @@ class Quiz {
 
   lateinit var name: String
 
-  @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade=[CascadeType.ALL])
-  lateinit var questions: MutableSet<Question>
+  @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade=[CascadeType.ALL])
+  lateinit var questions: List<Question>
 
   @JsonIgnore
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "subject_id")
   lateinit var subject: Subject
 
   @JsonIgnore
-  @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
-  lateinit var solutions: MutableSet<Solution>
+  @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY)
+  lateinit var solutions: List<Solution>
 }

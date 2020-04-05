@@ -8,8 +8,12 @@ import org.springframework.stereotype.Service
 class RegisterAndLoginService(private val userRepository: UserRepository) {
 
   fun registerUser(user: User): Boolean {
-    userRepository.save(user)
-    return true
+    return if (!usernameAlreadyUsed(user.username)) {
+      userRepository.save(user)
+      true
+    } else {
+      false
+    }
   }
 
   private fun usernameAlreadyUsed(username: String): Boolean {

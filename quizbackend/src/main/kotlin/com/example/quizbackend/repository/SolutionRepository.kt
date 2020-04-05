@@ -9,9 +9,9 @@ import org.springframework.data.repository.query.Param
 
 interface SolutionRepository: CrudRepository<Solution, Long> {
 
-  fun findAllByQuiz(quiz: Quiz): MutableSet<Solution>
+  fun findAllByQuiz(quiz: Quiz): List<Solution>
 
-  fun findAllByUser(user: User): MutableSet<Solution>
+  fun findAllByUser(user: User): List<Solution>
 
   fun findByUserAndQuiz(user: User,  quiz: Quiz): Solution?
 }

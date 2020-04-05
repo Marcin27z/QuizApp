@@ -40,8 +40,8 @@ class QuizService {
     return quizRepository.findByName(quizName)
   }
 
-  fun getQuizzesForSubject(subjectName: String): Set<Quiz> {
-    return subjectRepository.findByName(subjectName)?.quizzes ?: emptySet()
+  fun getQuizzesForSubject(subjectName: String): List<Quiz> {
+    return subjectRepository.findByName(subjectName)?.quizzes ?: emptyList()
   }
 
   fun getAllUsersQuizzes(userName: String): Set<Quiz> {

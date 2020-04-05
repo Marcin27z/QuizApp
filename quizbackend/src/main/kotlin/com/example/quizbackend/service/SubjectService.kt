@@ -19,7 +19,7 @@ class SubjectService {
     userRepository.findByUsername(userName)?.let { user ->
       val subject = Subject().apply {
         name = subjectName
-        users = mutableSetOf(user)
+        users = mutableListOf(user)
       }
       subjectRepository.save(subject)
     }
@@ -34,7 +34,7 @@ class SubjectService {
     }
   }
 
-  fun getUsersSubjects(userName: String): Set<Subject> {
-    return userRepository.findByUsername(userName)?.subjects ?: emptySet()
+  fun getUsersSubjects(userName: String): List<Subject> {
+    return userRepository.findByUsername(userName)?.subjects ?: emptyList()
   }
 }

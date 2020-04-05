@@ -11,11 +11,11 @@ class Solution {
 
   var score: Int = 0
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "quiz_id")
   lateinit var quiz: Quiz
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
   lateinit var user: User
 

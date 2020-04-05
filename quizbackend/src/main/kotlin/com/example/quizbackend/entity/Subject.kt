@@ -13,13 +13,13 @@ class Subject {
   @Column(unique = true)
   lateinit var name: String
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
       name = "users_subjects",
       joinColumns = [JoinColumn(name = "subject_id")],
       inverseJoinColumns = [JoinColumn(name = "user_id")])
-  lateinit var users: MutableSet<User>
+  lateinit var users: MutableList<User>
 
-  @OneToMany(mappedBy = "subject", fetch = FetchType.EAGER)
-  lateinit var quizzes: MutableSet<Quiz>
+  @OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
+  lateinit var quizzes: List<Quiz>
 }

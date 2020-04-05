@@ -35,9 +35,9 @@ class SolutionService {
     }
   }
 
-  fun getSolutionsForQuiz(quizName: String): Set<Solution> {
+  fun getSolutionsForQuiz(quizName: String): List<Solution> {
     return quizRepository.findByName(quizName)?.let { quiz ->
       solutionRepository.findAllByQuiz(quiz)
-    } ?: emptySet()
+    } ?: emptyList()
   }
 }
