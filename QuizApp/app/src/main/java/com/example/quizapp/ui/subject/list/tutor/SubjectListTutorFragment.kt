@@ -15,8 +15,6 @@ import com.example.quizapp.MainActivity
 
 import com.example.quizapp.R
 import com.example.quizapp.ui.subject.list.SubjectListAdapter
-import kotlinx.android.synthetic.main.fragment_quizzes_tutor.*
-import kotlinx.android.synthetic.main.fragment_quizzes_tutor.view.*
 import kotlinx.android.synthetic.main.subject_list_student_fragment.*
 import kotlinx.android.synthetic.main.subject_list_student_fragment.subjectList
 

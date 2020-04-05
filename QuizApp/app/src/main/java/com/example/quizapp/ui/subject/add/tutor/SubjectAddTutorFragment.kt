@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.quizapp.MainActivity
 
 import com.example.quizapp.R
 import kotlinx.android.synthetic.main.subject_add_tutor_fragment.*
@@ -35,6 +36,13 @@ class SubjectAddTutorFragment : Fragment() {
                 findNavController().navigate(SubjectAddTutorFragmentDirections.actionSubjectAddTutorFragmentToSubjectListTutorFragment())
             }
         })
+        val mainActivity = (activity as MainActivity)
+        mainActivity.setSupportActionBar(toolbar)
+        mainActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            mainActivity.onBackPressed()
+        }
     }
 
 }

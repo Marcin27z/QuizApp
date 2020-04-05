@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.example.quizapp.MainActivity
 
 import com.example.quizapp.R
 import kotlinx.android.synthetic.main.solutions_list_student_fragment.*
+import kotlinx.android.synthetic.main.solutions_list_student_fragment.toolbar
 
 class SolutionsListStudentFragment : Fragment() {
 
@@ -33,6 +35,14 @@ class SolutionsListStudentFragment : Fragment() {
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
         })
+
+        val mainActivity = (activity as MainActivity)
+        mainActivity.setSupportActionBar(toolbar)
+        mainActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            mainActivity.onBackPressed()
+        }
     }
 
 }

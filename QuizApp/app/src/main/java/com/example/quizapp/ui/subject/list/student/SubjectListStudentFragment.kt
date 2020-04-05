@@ -11,11 +11,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.quizapp.MainActivity
 
 import com.example.quizapp.R
 import com.example.quizapp.ui.subject.list.SubjectListAdapter
 import kotlinx.android.synthetic.main.subject_list_student_fragment.*
 import kotlinx.android.synthetic.main.subject_list_student_fragment.subjectList
+import kotlinx.android.synthetic.main.subject_list_student_fragment.toolbar
 
 class SubjectListStudentFragment : Fragment() {
 
@@ -49,6 +51,13 @@ class SubjectListStudentFragment : Fragment() {
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
         })
+        val mainActivity = (activity as MainActivity)
+        mainActivity.setSupportActionBar(toolbar)
+        mainActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            mainActivity.onBackPressed()
+        }
     }
 
 }

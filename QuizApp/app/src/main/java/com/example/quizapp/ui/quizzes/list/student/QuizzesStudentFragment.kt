@@ -12,10 +12,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.quizapp.MainActivity
 import com.example.quizapp.R
 import com.example.quizapp.ui.quiz.QuizActivity
 import com.example.quizapp.ui.quizzes.list.QuizzesRecyclerAdapter
+import kotlinx.android.synthetic.main.fragment_quizzes_student.*
 import kotlinx.android.synthetic.main.fragment_quizzes_student.view.*
+import kotlinx.android.synthetic.main.fragment_quizzes_student.view.toolbar
 
 class QuizzesStudentFragment : Fragment() {
 
@@ -56,5 +59,16 @@ class QuizzesStudentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         quizzesViewModel.getQuizzes(arguments?.getString("subjectName"))
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val mainActivity = (activity as MainActivity)
+        mainActivity.setSupportActionBar(toolbar)
+        mainActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            mainActivity.onBackPressed()
+        }
     }
 }
