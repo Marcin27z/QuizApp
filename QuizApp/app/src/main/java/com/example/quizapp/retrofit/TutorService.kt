@@ -18,11 +18,11 @@ interface TutorService {
     fun addQuizToSubject(@Body quiz: QuizDto, @Path("subjectName") subjectName: String): Call<ResponseBody>
 
     @GET("/tutor/solutions/{quizName}")
-    fun getSolutionsForQuiz(@Path("quizName") quizName: String): Call<List<SolutionInfo>?>
+    fun getSolutionsForQuiz(@Path("quizName") quizName: String): Call<List<SolutionInfo>>
 
     @GET("/tutor/quiz")
-    fun getQuizzesInfo(): Call<List<QuizInfoTutor>?>
+    suspend fun getQuizzesInfo(): List<QuizInfoTutor>
 
     @GET("/tutor/quiz/subject/{subjectName}")
-    fun getQuizzesInfoForSubject(@Path("subjectName") subjectName: String): Call<List<QuizInfoTutor>?>
+    suspend fun getQuizzesInfoForSubject(@Path("subjectName") subjectName: String): List<QuizInfoTutor>
 }

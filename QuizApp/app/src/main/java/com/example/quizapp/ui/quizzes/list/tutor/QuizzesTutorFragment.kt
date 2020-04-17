@@ -30,10 +30,10 @@ class QuizzesTutorFragment : Fragment() {
     ): View? {
         quizzesViewModel =
             ViewModelProvider(this).get(QuizzesTutorViewModel::class.java)
+        quizzesViewModel.getQuizzes(arguments?.getString("subjectName"))
         val root = inflater.inflate(R.layout.fragment_quizzes_tutor, container, false)
         root.quizzes_list.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
         quizzesViewModel.quizzes.observe(viewLifecycleOwner, Observer {
@@ -66,11 +66,6 @@ class QuizzesTutorFragment : Fragment() {
         })
         setHasOptionsMenu(true)
         return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        quizzesViewModel.getQuizzes(arguments?.getString("subjectName"))
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
