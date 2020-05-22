@@ -2,10 +2,9 @@ package com.example.quizapp.ui.quizzes.list.student
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,8 +16,11 @@ import com.example.quizapp.R
 import com.example.quizapp.ui.quiz.QuizActivity
 import com.example.quizapp.ui.quizzes.list.QuizzesRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_quizzes_student.*
+import kotlinx.android.synthetic.main.fragment_quizzes_student.quizzes_list
+import kotlinx.android.synthetic.main.fragment_quizzes_student.toolbar
 import kotlinx.android.synthetic.main.fragment_quizzes_student.view.*
 import kotlinx.android.synthetic.main.fragment_quizzes_student.view.toolbar
+import kotlinx.android.synthetic.main.fragment_quizzes_tutor.*
 
 class QuizzesStudentFragment : Fragment() {
 
@@ -48,17 +50,36 @@ class QuizzesStudentFragment : Fragment() {
         quizzesViewModel.quizzes.observe(viewLifecycleOwner, Observer {
             root.quizzes_list.adapter =
                 QuizzesRecyclerAdapter(it) { quizName ->
-                    val intent = Intent(activity, QuizActivity::class.java)
-                    intent.putExtra("quizName", quizName)
-                    startActivity(intent)
+                    findNavController().navigate(QuizzesStudentFragmentDirections.actionQuizzesStudentFragmentToQuestionFragment(quizName))
+//                    val intent = Intent(activity, QuizActivity::class.java)
+//                    intent.putExtra("quizName", quizName)
+//                    startActivity(intent)
                 }
         })
+        setHasOptionsMenu(true)
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         quizzesViewModel.getQuizzes(arguments?.getString("subjectName"))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_menu, menu)
+        val menuItem = menu.findItem(R.id.action_search)
+        val searchView = menuItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                (quizzes_list.adapter as QuizzesRecyclerAdapter).filter.filter(newText)
+                return true
+            }
+        })
+        return super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

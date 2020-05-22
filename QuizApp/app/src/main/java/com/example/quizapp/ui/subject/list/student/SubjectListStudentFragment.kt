@@ -1,10 +1,9 @@
 package com.example.quizapp.ui.subject.list.student
 
 import android.os.Bundle
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -14,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizapp.MainActivity
 
 import com.example.quizapp.R
+import com.example.quizapp.ui.subject.list.SubjectListItemListener
 import com.example.quizapp.ui.subject.list.SubjectListAdapter
 import kotlinx.android.synthetic.main.subject_list_student_fragment.*
 import kotlinx.android.synthetic.main.subject_list_student_fragment.subjectList
@@ -27,6 +27,7 @@ class SubjectListStudentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.subject_list_student_fragment, container, false)
     }
 
@@ -45,9 +46,17 @@ class SubjectListStudentFragment : Fragment() {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter =
-                    SubjectListAdapter(it) { subjectName ->
-                        findNavController().navigate(SubjectListStudentFragmentDirections.actionSubjectListStudentFragmentToQuizzesStudentFragment(subjectName))
-                    }
+                    SubjectListAdapter(it, object: SubjectListItemListener {
+                        override fun onItemClick(subjectName: String) {
+                            findNavController().navigate(SubjectListStudentFragmentDirections.actionSubjectListStudentFragmentToQuizzesStudentFragment(subjectName))
+                        }
+
+                        override fun onDeleteButtonClick(subjectName: String) {
+                            viewModel.deleteSubject(subjectName)
+                            viewModel.getSubjects()
+                        }
+//
+                    })
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
         })
@@ -58,6 +67,23 @@ class SubjectListStudentFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             mainActivity.onBackPressed()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_menu, menu)
+        val menuItem = menu.findItem(R.id.action_search)
+        val searchView = menuItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                (subjectList.adapter as SubjectListAdapter).filter.filter(newText)
+                return true
+            }
+        })
+        return super.onCreateOptionsMenu(menu, inflater)
     }
 
 }

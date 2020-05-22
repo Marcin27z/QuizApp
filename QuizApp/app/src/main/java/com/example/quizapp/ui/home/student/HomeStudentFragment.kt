@@ -40,6 +40,7 @@ class HomeStudentFragment : Fragment() {
             findNavController().navigate(HomeStudentFragmentDirections.actionHomeStudentFragmentToSubjectListStudentFragment())
         }
         root.logOut.setOnClickListener {
+            homeStudentViewModel.unsubscribeFromSubjects()
             findNavController().navigate(HomeStudentFragmentDirections.actionHomeStudentFragmentToLoginFragment(false, null, null))
         }
         root.resultsButton.setOnClickListener {

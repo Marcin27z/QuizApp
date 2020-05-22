@@ -15,6 +15,7 @@ import com.example.quizapp.MainActivity
 
 import com.example.quizapp.R
 import com.example.quizapp.ui.subject.list.SubjectListAdapter
+import com.example.quizapp.ui.subject.list.SubjectListItemListener
 import kotlinx.android.synthetic.main.subject_list_student_fragment.*
 import kotlinx.android.synthetic.main.subject_list_student_fragment.subjectList
 
@@ -56,9 +57,15 @@ class SubjectListTutorFragment : Fragment() {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter =
-                    SubjectListAdapter(it) { subjectName ->
-                        findNavController().navigate(SubjectListTutorFragmentDirections.actionSubjectListTutorFragmentToQuizzesTutorFragment(subjectName))
-                    }
+                    SubjectListAdapter(it, object: SubjectListItemListener {
+                        override fun onItemClick(subjectName: String) {
+                            findNavController().navigate(SubjectListTutorFragmentDirections.actionSubjectListTutorFragmentToQuizzesTutorFragment(subjectName))
+                        }
+
+                        override fun onDeleteButtonClick(subjectName: String) {
+                            // TODO("Not yet implemented")
+                        }
+                    })
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
         })

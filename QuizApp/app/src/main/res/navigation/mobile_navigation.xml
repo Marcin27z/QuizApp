@@ -139,6 +139,9 @@
             <action
                 android:id="@+id/action_quizzesStudentFragment_to_homeStudentFragment"
                 app:destination="@id/homeStudentFragment" />
+            <action
+                android:id="@+id/action_quizzesStudentFragment_to_questionFragment"
+                app:destination="@id/questionFragment" />
         </fragment>
         <fragment
             android:id="@+id/subjectListStudentFragment"
@@ -195,6 +198,33 @@
             android:name="com.example.quizapp.ui.solutions.student.SolutionsListStudentFragment"
             android:label="solutions_list_student_fragment"
             tools:layout="@layout/solutions_list_student_fragment" />
+        <fragment
+            android:id="@+id/questionFragment"
+            android:name="com.example.quizapp.ui.solve.QuestionFragment"
+            android:label="QuestionFragment"
+            tools:layout="@layout/question_fragment">
+            <action
+                android:id="@+id/action_questionFragment_to_resultFragment"
+                app:destination="@id/resultFragment" />
+            <argument
+                android:name="quizName"
+                app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/resultFragment"
+            android:name="com.example.quizapp.ui.solve.ResultFragment"
+            android:label="ResultFragment"
+            tools:layout="@layout/fragment_result">
+            <argument
+                android:name="quizName"
+                app:argType="string" />
+            <argument
+                android:name="points"
+                app:argType="integer" />
+            <argument
+                android:name="totalPoints"
+                app:argType="integer" />
+        </fragment>
     </navigation>
     <fragment
         android:id="@+id/registerFragment"

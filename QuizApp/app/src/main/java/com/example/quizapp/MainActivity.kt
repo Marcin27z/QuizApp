@@ -22,11 +22,6 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         }
         navController.setGraph(R.navigation.mobile_navigation, intent.extras)
-        FirebaseMessaging.getInstance().subscribeToTopic("Math")
-            .addOnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                }
-            }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

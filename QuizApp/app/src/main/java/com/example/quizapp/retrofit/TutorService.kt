@@ -14,6 +14,9 @@ interface TutorService {
     @POST("/tutor/createSubject/{subjectName}")
     fun createSubject(@Path("subjectName") subjectName: String): Call<ResponseBody>
 
+    @POST("/tutor/deleteSubject/{subjectName}")
+    suspend fun deleteSubject(@Path("subjectName") subjectName: String): Call<ResponseBody>
+
     @POST("/tutor/addQuiz/{subjectName}")
     fun addQuizToSubject(@Body quiz: QuizDto, @Path("subjectName") subjectName: String): Call<ResponseBody>
 
