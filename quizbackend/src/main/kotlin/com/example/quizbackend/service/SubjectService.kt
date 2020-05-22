@@ -37,4 +37,23 @@ class SubjectService {
   fun getUsersSubjects(userName: String): List<Subject> {
     return userRepository.findByUsername(userName)?.subjects ?: emptyList()
   }
+
+  fun deleteSubject(subjectName: String, username: String) {
+    subjectRepository.findByName(subjectName)?.let { subject ->
+      userRepository.findByUsername(username)?.let  {user ->
+        if (subject.users.contains(user)) {
+          subjectRepository.delete(subject)
+        }
+      }
+    }
+  }
+
+  fun unsubscribeFromSubject(subjectName: String, userName: String) {
+    userRepository.findByUsername(userName)?.let { user ->
+      subjectRepository.findByName(subjectName)?.let { subject ->
+        user.subjects.remove(subject)
+      }
+      userRepository.save(user)
+    }
+  }
 }

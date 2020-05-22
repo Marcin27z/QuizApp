@@ -34,6 +34,11 @@ class StudentController {
     subjectService.subscribeToSubject(subjectName, principal.name)
   }
 
+  @GetMapping("/unsubscribe/{subjectName}")
+  fun unsubscribeFromSubject(principal: Principal, @PathVariable subjectName: String) {
+    subjectService.unsubscribeFromSubject(subjectName, principal.name)
+  }
+
 
   @PostMapping("/quiz/solution")
   fun submitSolution(principal: Principal, @RequestBody solutionDto: SolutionDto) {

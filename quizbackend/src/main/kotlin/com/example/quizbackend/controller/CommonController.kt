@@ -8,10 +8,7 @@ import com.example.quizbackend.fcm.FCMService
 import com.example.quizbackend.service.QuizService
 import com.example.quizbackend.service.SubjectService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.security.Principal
 
 @RestController
@@ -39,9 +36,9 @@ class CommonController {
     return quizService.getQuizByName(quizName)
   }
 
-  @GetMapping("/quiz/mock/add/{quizName}")
-  fun mockNewQuiz(@PathVariable quizName: String) {
-    fcmService.sendMessage("Math", quizName)
+  @GetMapping("/quiz/mock/add/{topic}")
+  fun mockNewQuiz(@PathVariable topic: String, @RequestParam quizName: String) {
+    fcmService.sendMessage(topic, quizName)
   }
 
 }

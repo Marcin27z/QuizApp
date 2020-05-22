@@ -24,7 +24,7 @@ class User {
   lateinit var role: Role
 
   @ManyToMany(mappedBy = "users")
-  lateinit var subjects: List<Subject>
+  lateinit var subjects: MutableList<Subject>
 
   @OneToMany(mappedBy = "user")
   lateinit var solutions: List<Solution>
