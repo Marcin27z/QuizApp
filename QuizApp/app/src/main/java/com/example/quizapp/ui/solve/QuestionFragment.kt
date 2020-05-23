@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -14,14 +14,18 @@ import androidx.navigation.fragment.navArgs
 import com.example.quizapp.MainActivity
 import com.example.quizapp.R
 import com.example.quizapp.ui.popup.PopUp
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.question_fragment.*
 import kotlinx.android.synthetic.main.question_fragment.question
+import javax.inject.Inject
 
-class QuestionFragment : Fragment(), PopUp.OnTouchListener {
+class QuestionFragment : DaggerFragment(), PopUp.OnTouchListener {
+
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel by viewModels<QuizViewModel> { factory }
 
     private lateinit var popUp: PopUp
-
-    private lateinit var viewModel: QuizViewModel
 
     private val args by navArgs<QuestionFragmentArgs>()
 
@@ -34,8 +38,7 @@ class QuestionFragment : Fragment(), PopUp.OnTouchListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val factory = QuizViewModelFactory(args.quizName)
-        viewModel = ViewModelProvider(this, factory).get(QuizViewModel::class.java)
+        viewModel.getQuiz(args.quizName)
         viewModel.answers.observe(viewLifecycleOwner, Observer {
             answer1.text = it[0]
             answer2.text = it[1]

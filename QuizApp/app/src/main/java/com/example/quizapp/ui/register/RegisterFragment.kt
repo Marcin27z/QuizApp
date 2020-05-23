@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -15,12 +16,17 @@ import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
 import com.example.quizapp.closeKeyboard
 import com.example.quizapp.dto.Role
+import com.example.quizapp.ui.quizzes.list.student.QuizzesStudentViewModel
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.register_fragment.*
+import javax.inject.Inject
 
-class RegisterFragment : Fragment() {
+class RegisterFragment : DaggerFragment() {
 
-    private lateinit var viewModel: RegisterViewModel
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel by viewModels<RegisterViewModel> { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,7 +82,6 @@ class RegisterFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
         registerButton.setOnClickListener {
             if (validateForm()) {
                 closeKeyboard()

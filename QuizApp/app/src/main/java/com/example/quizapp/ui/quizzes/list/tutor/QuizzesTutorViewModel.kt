@@ -8,8 +8,9 @@ import com.example.quizapp.dto.QuizInfoTutor
 import com.example.quizapp.retrofit.ServiceGenerator
 import com.example.quizapp.retrofit.TutorService
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
 
-class QuizzesTutorViewModel : ViewModel() {
+class QuizzesTutorViewModel @Inject constructor(private val tutorService: TutorService): ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is tools Fragment"
@@ -19,7 +20,6 @@ class QuizzesTutorViewModel : ViewModel() {
     lateinit var quizzes: LiveData<List<QuizInfoTutor>>
 
     fun getQuizzes(subjectName: String? = null) {
-        val tutorService = ServiceGenerator.createService(TutorService::class.java)
         quizzes = liveData(Dispatchers.IO) {
             emit(if (subjectName == null) {
                 tutorService.getQuizzesInfo()

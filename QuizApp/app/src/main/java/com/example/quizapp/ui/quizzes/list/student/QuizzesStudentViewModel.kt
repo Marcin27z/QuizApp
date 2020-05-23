@@ -9,8 +9,9 @@ import com.example.quizapp.retrofit.StudentService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class QuizzesStudentViewModel : ViewModel() {
+class QuizzesStudentViewModel @Inject constructor(private val studentService: StudentService): ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is tools Fragment"
@@ -21,7 +22,6 @@ class QuizzesStudentViewModel : ViewModel() {
     val quizzes: LiveData<List<QuizInfo>> = _quizzes
 
     fun getQuizzes(subjectName: String? = null) {
-        val studentService = ServiceGenerator.createService(StudentService::class.java)
         val call: Call<List<QuizInfo>?>? =
         if (subjectName == null) {
             studentService.getQuizzesInfo()

@@ -10,15 +10,15 @@ import com.example.quizapp.retrofit.ServiceGenerator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel @Inject constructor(private val registerService: RegisterService): ViewModel() {
 
     private val _registerResult = MutableLiveData<RegisterResult>()
     val registerResult: LiveData<RegisterResult> = _registerResult
 
     fun register(name: String, surname: String, login: String, password: String, role: Role) {
-        val loginService = ServiceGenerator.createService(RegisterService::class.java, null, null)
-        val call: Call<Boolean?> = loginService.register(UserDto(name, surname, login, password, role))
+        val call: Call<Boolean?> = registerService.register(UserDto(name, surname, login, password, role))
         call.enqueue(object: Callback<Boolean?> {
 
             override fun onResponse(call: Call<Boolean?>, response: Response<Boolean?>) {

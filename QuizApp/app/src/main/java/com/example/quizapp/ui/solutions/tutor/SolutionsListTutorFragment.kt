@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -12,13 +13,18 @@ import com.example.quizapp.MainActivity
 
 import com.example.quizapp.R
 import com.example.quizapp.ui.quizzes.list.QuizzesRecyclerAdapter
+import com.example.quizapp.ui.solutions.student.SolutionsListStudentViewModel
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_quizzes_tutor.*
 import kotlinx.android.synthetic.main.solutions_list_tutor_fragment.*
 import kotlinx.android.synthetic.main.solutions_list_tutor_fragment.toolbar
+import javax.inject.Inject
 
-class SolutionsListTutorFragment : Fragment() {
+class SolutionsListTutorFragment : DaggerFragment() {
 
-    private lateinit var viewModel: SolutionsListTutorViewModel
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel by viewModels<SolutionsListTutorViewModel> { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +37,6 @@ class SolutionsListTutorFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SolutionsListTutorViewModel::class.java)
         viewModel.getSolutions(arguments?.getString("quizName")!!)
         viewModel.solutions.observe(viewLifecycleOwner, Observer {
             solutionsList.apply {

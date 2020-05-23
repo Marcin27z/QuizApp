@@ -12,8 +12,11 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class AddQuizTutorViewModel : ViewModel() {
+class AddQuizTutorViewModel @Inject constructor(
+    private val commonService: CommonService,
+    private val tutorService: TutorService): ViewModel() {
 
     private val _subjectList = MutableLiveData<List<String>>()
     val subjectList: LiveData<List<String>> = _subjectList
@@ -26,7 +29,6 @@ class AddQuizTutorViewModel : ViewModel() {
     }
 
     private fun getSubjects() {
-        val commonService = ServiceGenerator.createService(CommonService::class.java)
         val call = commonService.getSubjects()
         call.enqueue(object: Callback<List<SubjectInfo>?> {
 
@@ -45,7 +47,6 @@ class AddQuizTutorViewModel : ViewModel() {
     }
 
     fun addQuiz(quiz: QuizDto, subject: String) {
-        val tutorService = ServiceGenerator.createService(TutorService::class.java)
         val call = tutorService.addQuizToSubject(quiz, subject)
         call.enqueue(object: Callback<ResponseBody> {
 

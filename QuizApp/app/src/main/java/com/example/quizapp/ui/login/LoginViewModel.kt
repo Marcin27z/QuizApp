@@ -9,14 +9,15 @@ import com.example.quizapp.dto.UserInfo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel @Inject constructor(private val serviceGenerator: ServiceGenerator): ViewModel() {
 
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
     fun login(username: String, password: String) {
-        val loginService = ServiceGenerator.createService(LoginService::class.java, username, password)
+        val loginService = serviceGenerator.createService(LoginService::class.java, username, password)
         val call: Call<UserInfo?> = loginService.basicLogin()
         call.enqueue(object: Callback<UserInfo?> {
 

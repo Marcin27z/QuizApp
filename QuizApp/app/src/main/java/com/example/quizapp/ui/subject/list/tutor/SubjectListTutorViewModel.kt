@@ -9,14 +9,14 @@ import com.example.quizapp.retrofit.ServiceGenerator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class SubjectListTutorViewModel : ViewModel() {
+class SubjectListTutorViewModel @Inject constructor(private val commonService: CommonService): ViewModel() {
 
     private val _subjects = MutableLiveData<List<SubjectInfo>>()
     val subjects: LiveData<List<SubjectInfo>> = _subjects
 
     init {
-        val commonService = ServiceGenerator.createService(CommonService::class.java)
         val call = commonService.getSubjects()
         call.enqueue(object: Callback<List<SubjectInfo>?> {
 

@@ -9,14 +9,14 @@ import com.example.quizapp.dto.SolutionInfo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class SolutionsListTutorViewModel : ViewModel() {
+class SolutionsListTutorViewModel @Inject constructor(private val tutorService: TutorService): ViewModel() {
 
     private val _solutions = MutableLiveData<List<SolutionInfo>>()
     val solutions: LiveData<List<SolutionInfo>> = _solutions
 
     fun getSolutions(quizName: String) {
-        val tutorService = ServiceGenerator.createService(TutorService::class.java)
         val call = tutorService.getSolutionsForQuiz(quizName)
         call.enqueue(object: Callback<List<SolutionInfo>?> {
             override fun onResponse(call: Call<List<SolutionInfo>?>, response: Response<List<SolutionInfo>?>) {

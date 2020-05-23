@@ -12,8 +12,9 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class QuizViewModel(quizName: String) : ViewModel() {
+class QuizViewModel @Inject constructor(private val commonService: CommonService, private val studentService: StudentService): ViewModel() {
 
     private var quiz: Quiz? = null
 
@@ -42,8 +43,7 @@ class QuizViewModel(quizName: String) : ViewModel() {
 
     var correctAnswer: String? = null
 
-    init {
-        val commonService = ServiceGenerator.createService(CommonService::class.java)
+    fun getQuiz(quizName: String) {
         val call = commonService.getQuiz(quizName)
         call.enqueue(object: Callback<Quiz?> {
 
@@ -90,8 +90,7 @@ class QuizViewModel(quizName: String) : ViewModel() {
     }
 
     private fun submitResult() {
-        val commonService = ServiceGenerator.createService(StudentService::class.java)
-        val call = commonService.submitSolution(SolutionDto().apply {
+        val call = studentService.submitSolution(SolutionDto().apply {
             quizName = quiz?.name ?: ""
             score = _points.value ?: 0
         })

@@ -9,9 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.quizapp.R
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_result.*
 
-class ResultFragment: Fragment() {
+class ResultFragment: DaggerFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

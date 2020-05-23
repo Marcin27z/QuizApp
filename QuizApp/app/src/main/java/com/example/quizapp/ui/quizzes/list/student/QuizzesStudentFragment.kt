@@ -6,6 +6,7 @@ import android.view.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -13,18 +14,22 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizapp.MainActivity
 import com.example.quizapp.R
-import com.example.quizapp.ui.quiz.QuizActivity
+import com.example.quizapp.ui.login.LoginViewModel
 import com.example.quizapp.ui.quizzes.list.QuizzesRecyclerAdapter
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_quizzes_student.*
 import kotlinx.android.synthetic.main.fragment_quizzes_student.quizzes_list
 import kotlinx.android.synthetic.main.fragment_quizzes_student.toolbar
 import kotlinx.android.synthetic.main.fragment_quizzes_student.view.*
 import kotlinx.android.synthetic.main.fragment_quizzes_student.view.toolbar
 import kotlinx.android.synthetic.main.fragment_quizzes_tutor.*
+import javax.inject.Inject
 
-class QuizzesStudentFragment : Fragment() {
+class QuizzesStudentFragment : DaggerFragment() {
 
-    private lateinit var quizzesViewModel: QuizzesStudentViewModel
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val quizzesViewModel by viewModels<QuizzesStudentViewModel> { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,8 +44,6 @@ class QuizzesStudentFragment : Fragment() {
                 }
             })
 
-        quizzesViewModel =
-            ViewModelProvider(this).get(QuizzesStudentViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_quizzes_student, container, false)
         root.quizzes_list.apply {
             setHasFixedSize(true)
@@ -51,9 +54,6 @@ class QuizzesStudentFragment : Fragment() {
             root.quizzes_list.adapter =
                 QuizzesRecyclerAdapter(it) { quizName ->
                     findNavController().navigate(QuizzesStudentFragmentDirections.actionQuizzesStudentFragmentToQuestionFragment(quizName))
-//                    val intent = Intent(activity, QuizActivity::class.java)
-//                    intent.putExtra("quizName", quizName)
-//                    startActivity(intent)
                 }
         })
         setHasOptionsMenu(true)

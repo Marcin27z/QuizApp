@@ -9,14 +9,14 @@ import com.example.quizapp.retrofit.StudentService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class SolutionsListStudentViewModel : ViewModel() {
+class SolutionsListStudentViewModel @Inject constructor(private val studentService: StudentService): ViewModel() {
 
     private val _quizzes = MutableLiveData<List<QuizInfo>>()
     val quizzes: LiveData<List<QuizInfo>> = _quizzes
 
     fun getSolvedQuizzes() {
-        val studentService = ServiceGenerator.createService(StudentService::class.java)
         val call: Call<List<QuizInfo>?>? = studentService.getQuizzesInfo()
         call?.enqueue(object: Callback<List<QuizInfo>?> {
 

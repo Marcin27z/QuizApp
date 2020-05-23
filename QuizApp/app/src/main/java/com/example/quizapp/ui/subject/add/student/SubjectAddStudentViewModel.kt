@@ -11,14 +11,14 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class SubjectAddStudentViewModel : ViewModel() {
+class SubjectAddStudentViewModel @Inject constructor(private val studentService: StudentService): ViewModel() {
 
     private val _addStatus = MutableLiveData<Boolean>()
     val addStatus: LiveData<Boolean> = _addStatus
 
     fun addSubject(name: String) {
-        val studentService = ServiceGenerator.createService(StudentService::class.java)
         val call = studentService.subscribeToSubject(name)
         call.enqueue(object: Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {

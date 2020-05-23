@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -24,20 +25,28 @@ import com.example.quizapp.R
 import com.example.quizapp.closeKeyboard
 import com.example.quizapp.dto.Role
 import com.example.quizapp.retrofit.ServiceGenerator
+import com.example.quizapp.ui.home.tutor.HomeTutorViewModel
 import com.google.android.gms.auth.api.credentials.Credential
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.solution_tutor_recycler_item.*
+import javax.inject.Inject
 
 
-class LoginFragment : Fragment() {
+class LoginFragment : DaggerFragment() {
+
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val loginViewModel by viewModels<LoginViewModel> { factory }
 
     private val RC_READ = 1337
     private val RC_SAVE = 1338
 
     private val args by navArgs<LoginFragmentArgs>()
 
-    private lateinit var loginViewModel: LoginViewModel
+    @Inject
+    lateinit var serviceGenerator: ServiceGenerator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,9 +86,6 @@ class LoginFragment : Fragment() {
                 }
             })
 
-        loginViewModel = ViewModelProvider(this)
-            .get(LoginViewModel::class.java)
-
         mCredentialsManager = CredentialsManager(activity as MainActivity, loginViewModel)
         loginViewModel.loginResult.observe(viewLifecycleOwner, Observer {
             val loginResult = it ?: return@Observer
@@ -109,7 +115,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun updateUiWithUser(role: Role) {
-        ServiceGenerator.storeCredentials(username.text.toString(), password.text.toString())
+        serviceGenerator.storeCredentials(username.text.toString(), password.text.toString())
         if (username.text!!.isNotEmpty()) {
             mCredentialsManager.saveCredentials(username.text.toString(), password.text.toString())
         }

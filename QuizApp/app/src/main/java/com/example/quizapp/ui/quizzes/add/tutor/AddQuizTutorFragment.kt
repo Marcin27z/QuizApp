@@ -17,9 +17,10 @@ import com.example.quizapp.R
 import com.example.quizapp.dto.Question
 import com.example.quizapp.dto.QuizDto
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.add_quiz_tutor_fragment.*
 
-class AddQuizTutorFragment : Fragment() {
+class AddQuizTutorFragment : DaggerFragment() {
 
     private lateinit var viewModel: AddQuizTutorViewModel
 

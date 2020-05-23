@@ -13,8 +13,9 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class SubjectListStudentViewModel : ViewModel() {
+class SubjectListStudentViewModel @Inject constructor(private val commonService: CommonService, private val studentService: StudentService): ViewModel() {
 
 
     private val _subjects = MutableLiveData<List<SubjectInfo>>()
@@ -25,7 +26,6 @@ class SubjectListStudentViewModel : ViewModel() {
     }
 
     fun getSubjects() {
-        val commonService = ServiceGenerator.createService(CommonService::class.java)
         val call = commonService.getSubjects()
         call.enqueue(object: Callback<List<SubjectInfo>?> {
 
@@ -44,7 +44,6 @@ class SubjectListStudentViewModel : ViewModel() {
     }
 
     fun deleteSubject(subjectName: String) {
-        val studentService = ServiceGenerator.createService(StudentService::class.java)
         viewModelScope.launch {
             studentService.unsubscribeFromSubject(subjectName)
         }

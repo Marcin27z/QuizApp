@@ -10,8 +10,9 @@ import com.google.firebase.messaging.FirebaseMessaging
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class HomeStudentViewModel : ViewModel() {
+class HomeStudentViewModel @Inject constructor(private val commonService: CommonService): ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
@@ -23,7 +24,6 @@ class HomeStudentViewModel : ViewModel() {
     }
 
     private fun subscribeToSubjects() {
-        val commonService = ServiceGenerator.createService(CommonService::class.java)
         val call = commonService.getSubjects()
         call.enqueue(object : Callback<List<SubjectInfo>?> {
 
@@ -52,7 +52,6 @@ class HomeStudentViewModel : ViewModel() {
     }
 
     fun unsubscribeFromSubjects() {
-        val commonService = ServiceGenerator.createService(CommonService::class.java)
         val call = commonService.getSubjects()
         call.enqueue(object : Callback<List<SubjectInfo>?> {
 

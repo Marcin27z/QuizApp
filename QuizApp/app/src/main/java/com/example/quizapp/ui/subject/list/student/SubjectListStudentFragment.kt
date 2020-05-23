@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -13,15 +14,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizapp.MainActivity
 
 import com.example.quizapp.R
+import com.example.quizapp.ui.subject.add.tutor.SubjectAddTutorViewModel
 import com.example.quizapp.ui.subject.list.SubjectListItemListener
 import com.example.quizapp.ui.subject.list.SubjectListAdapter
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.subject_list_student_fragment.*
 import kotlinx.android.synthetic.main.subject_list_student_fragment.subjectList
 import kotlinx.android.synthetic.main.subject_list_student_fragment.toolbar
+import javax.inject.Inject
 
-class SubjectListStudentFragment : Fragment() {
+class SubjectListStudentFragment : DaggerFragment() {
 
-    private lateinit var viewModel: SubjectListStudentViewModel
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel by viewModels<SubjectListStudentViewModel> { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +46,6 @@ class SubjectListStudentFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SubjectListStudentViewModel::class.java)
         viewModel.subjects.observe(viewLifecycleOwner, Observer {
             subjectList.apply {
                 layoutManager = LinearLayoutManager(context)

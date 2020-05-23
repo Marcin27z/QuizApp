@@ -5,18 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.quizapp.MainActivity
 
 import com.example.quizapp.R
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.solutions_list_student_fragment.*
 import kotlinx.android.synthetic.main.solutions_list_student_fragment.toolbar
+import javax.inject.Inject
 
-class SolutionsListStudentFragment : Fragment() {
+class SolutionsListStudentFragment : DaggerFragment() {
 
-    private lateinit var viewModel: SolutionsListStudentViewModel
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel by viewModels<SolutionsListStudentViewModel> { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +32,6 @@ class SolutionsListStudentFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SolutionsListStudentViewModel::class.java)
         viewModel.getSolvedQuizzes()
         viewModel.quizzes.observe(viewLifecycleOwner, Observer {
             solvedQuizzesRecycler.apply {

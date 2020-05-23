@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -13,23 +14,28 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.quizapp.MainActivity
 import com.example.quizapp.R
 import com.example.quizapp.dto.QuizInfo
+import com.example.quizapp.ui.login.LoginViewModel
 import com.example.quizapp.ui.quizzes.list.QuizzesRecyclerAdapter
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_quizzes_tutor.*
 import kotlinx.android.synthetic.main.fragment_quizzes_tutor.view.*
 import kotlinx.android.synthetic.main.fragment_quizzes_tutor.view.quizzes_list
+import javax.inject.Inject
 
 
-class QuizzesTutorFragment : Fragment() {
+class QuizzesTutorFragment : DaggerFragment() {
 
-    private lateinit var quizzesViewModel: QuizzesTutorViewModel
+
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val quizzesViewModel by viewModels<QuizzesTutorViewModel> { factory }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        quizzesViewModel =
-            ViewModelProvider(this).get(QuizzesTutorViewModel::class.java)
         quizzesViewModel.getQuizzes(arguments?.getString("subjectName"))
         val root = inflater.inflate(R.layout.fragment_quizzes_tutor, container, false)
         root.quizzes_list.apply {
