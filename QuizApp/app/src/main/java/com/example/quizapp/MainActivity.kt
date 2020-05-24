@@ -3,12 +3,18 @@ package com.example.quizapp
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.google.firebase.messaging.FirebaseMessaging
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
+
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel by viewModels<MainActivityViewModel> { factory }
 
     val navController by lazy { findNavController(R.id.nav_host_fragment) }
 
@@ -21,7 +27,11 @@ class MainActivity : AppCompatActivity() {
         intent.getStringExtra("quiz")?.let {
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         }
-        navController.setGraph(R.navigation.mobile_navigation, intent.extras)
+        if (viewModel.once) {
+            viewModel.once = false
+            navController.setGraph(R.navigation.mobile_navigation, intent.extras)
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

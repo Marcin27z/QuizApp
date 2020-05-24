@@ -40,6 +40,9 @@ class SubjectListStudentFragment : DaggerFragment() {
         addSubjectButton.setOnClickListener {
             findNavController().navigate(SubjectListStudentFragmentDirections.actionSubjectListStudentFragmentToSubjectAddStudentFragment())
         }
+        viewModel.message.observe(viewLifecycleOwner, Observer {
+            tvMessage.text = it
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -56,7 +59,6 @@ class SubjectListStudentFragment : DaggerFragment() {
 
                         override fun onDeleteButtonClick(subjectName: String) {
                             viewModel.deleteSubject(subjectName)
-                            viewModel.getSubjects()
                         }
 //
                     }) { subjectInfoList ->

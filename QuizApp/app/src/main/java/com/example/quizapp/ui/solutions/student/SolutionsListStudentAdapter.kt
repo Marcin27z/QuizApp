@@ -14,9 +14,9 @@ class SolutionsListStudentAdapter(private val solutions: List<QuizInfo>): Recycl
     class SolutionStudentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(solution: QuizInfo) {
             itemView.apply {
-                title.text = solution.name
-                subject.text = solution.subject
-                score.text = "${solution.solutionInfo?.score} / ${solution.solutionInfo?.maxScore}"
+                tvTitle.text = solution.name
+                tvSubject.text = solution.subject
+                tvScore.text = "${solution.solutionInfo?.score} / ${solution.solutionInfo?.maxScore}"
             }
         }
     }

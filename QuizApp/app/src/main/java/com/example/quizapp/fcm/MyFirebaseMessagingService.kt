@@ -50,13 +50,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             var builder = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentIntent(resultPendingIntent)
                 .setSmallIcon(R.drawable.ic_sentiment_satisfied_black_24dp)
-                .setContentTitle("My notification")
+                .setContentTitle("New quiz")
                 .setContentText("Much longer text that cannot fit one line...")
                 .setStyle(
                     NotificationCompat.BigTextStyle()
                         .bigText("Much longer text that cannot fit one line...")
                 )
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
                 .addAction(R.drawable.ic_sentiment_satisfied_black_24dp, "Solve",
                     solvePendingIntent)
 

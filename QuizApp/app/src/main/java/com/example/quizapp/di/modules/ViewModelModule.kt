@@ -1,6 +1,7 @@
 package com.example.quizapp.di.modules
 
 import androidx.lifecycle.ViewModel
+import com.example.quizapp.MainActivityViewModel
 import com.example.quizapp.ui.home.student.HomeStudentViewModel
 import com.example.quizapp.ui.home.tutor.HomeTutorViewModel
 import com.example.quizapp.ui.login.LoginViewModel
@@ -96,4 +97,9 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(key = SubjectListTutorViewModel::class)
     abstract fun bindSubjectListTutorViewModel(viewModel: SubjectListTutorViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(key = MainActivityViewModel::class)
+    abstract fun bindMainActivityViewModel(viewModel: MainActivityViewModel): ViewModel
 }

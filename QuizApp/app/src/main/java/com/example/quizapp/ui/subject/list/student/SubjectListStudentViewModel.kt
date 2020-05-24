@@ -1,5 +1,10 @@
 package com.example.quizapp.ui.subject.list.student
 
+import android.graphics.Typeface.BOLD
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannedString
+import android.text.style.StyleSpan
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,6 +26,9 @@ class SubjectListStudentViewModel @Inject constructor(private val commonService:
     private val _subjects = MutableLiveData<List<SubjectInfo>>()
     val subjects: LiveData<List<SubjectInfo>> = _subjects
 
+    private val _message = MutableLiveData<SpannableString>()
+    val message: LiveData<SpannableString> = _message
+
     init {
         getSubjects()
     }
@@ -32,20 +40,33 @@ class SubjectListStudentViewModel @Inject constructor(private val commonService:
             override fun onResponse(call: Call<List<SubjectInfo>?>, response: Response<List<SubjectInfo>?>) {
                 if (response.isSuccessful) {
                     _subjects.value = response.body()
-                } else {
+                    if (response.body().isNullOrEmpty()) {
+                        _message.value = SpannableString("You have no subjects.\nPlease click + to add new subject.").apply {
+                            setSpan(StyleSpan(BOLD), 35, 36, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
+                    } else {
+                        _message.value = SpannableString("")
+                    }
 
+                } else {
+                    _message.value = SpannableString("Network error occured.")
                 }
             }
 
             override fun onFailure(call: Call<List<SubjectInfo>?>, t: Throwable) {
-
+                _message.value = SpannableString("Network error occured.")
             }
         })
     }
 
     fun deleteSubject(subjectName: String) {
         viewModelScope.launch {
-            studentService.unsubscribeFromSubject(subjectName)
+            try {
+                studentService.unsubscribeFromSubject(subjectName)
+                getSubjects()
+            } catch (e: Exception) {
+
+            }
         }
         FirebaseMessaging.getInstance().unsubscribeFromTopic(subjectName)
             .addOnCompleteListener { task ->

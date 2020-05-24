@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.quizapp.MainActivity
 
 import com.example.quizapp.R
+import com.example.quizapp.closeKeyboard
 import com.example.quizapp.ui.solutions.tutor.SolutionsListTutorViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.subject_add_student_fragment.*
@@ -38,6 +39,7 @@ class SubjectAddStudentFragment : DaggerFragment() {
         viewModel.addStatus.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 viewModel.resetStatus()
+                closeKeyboard()
                 findNavController().navigate(SubjectAddStudentFragmentDirections.actionSubjectAddStudentFragmentToSubjectListStudentFragment())
             }
         })
