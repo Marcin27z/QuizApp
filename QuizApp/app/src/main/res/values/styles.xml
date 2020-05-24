@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeStyle">@style/MyActionMode</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -20,5 +22,14 @@
     <style name="popUpAnimation">
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+    <style name="MyActionMode" parent="Base.Widget.AppCompat.ActionMode">
+        <item name="background">@color/colorPrimary</item>
+        <item name="backgroundSplit">?attr/actionModeSplitBackground</item>
+        <item name="height">?attr/actionBarSize</item>
+        <item name="titleTextStyle">@style/TextAppearance.AppCompat.Widget.ActionMode.Title</item>
+        <item name="subtitleTextStyle">@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle</item>
+        <item name="closeItemLayout">@layout/close_button_layout</item>
     </style>
 </resources>

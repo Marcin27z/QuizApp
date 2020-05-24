@@ -24,5 +24,5 @@ interface StudentService {
     fun getQuizzesInfoForSubject(@Path("subjectName") subjectName: String): Call<List<QuizInfo>?>
 
     @GET("/student/unsubscribe/{subjectName}")
-    suspend fun unsubscribeFromSubject(subjectName: String): Call<ResponseBody>
+    suspend fun unsubscribeFromSubject(@Path("subjectName") subjectName: String): ResponseBody
 }

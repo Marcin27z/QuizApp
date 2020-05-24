@@ -2,8 +2,8 @@ package com.example.quizapp.ui.subject.list.student
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizapp.MainActivity
 
 import com.example.quizapp.R
-import com.example.quizapp.ui.subject.add.tutor.SubjectAddTutorViewModel
 import com.example.quizapp.ui.subject.list.SubjectListItemListener
-import com.example.quizapp.ui.subject.list.SubjectListAdapter
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.subject_list_student_fragment.*
 import kotlinx.android.synthetic.main.subject_list_student_fragment.subjectList
@@ -51,7 +49,7 @@ class SubjectListStudentFragment : DaggerFragment() {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter =
-                    SubjectListAdapter(it, object: SubjectListItemListener {
+                    SubjectListStudentAdapter(it, (activity as AppCompatActivity), object: SubjectListItemListener {
                         override fun onItemClick(subjectName: String) {
                             findNavController().navigate(SubjectListStudentFragmentDirections.actionSubjectListStudentFragmentToQuizzesStudentFragment(subjectName))
                         }
@@ -61,7 +59,12 @@ class SubjectListStudentFragment : DaggerFragment() {
                             viewModel.getSubjects()
                         }
 //
-                    })
+                    }) { subjectInfoList ->
+                        for (subject in subjectInfoList) {
+                            viewModel.deleteSubject(subject.name)
+                        }
+                        viewModel.getSubjects()
+                    }
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
         })
@@ -84,7 +87,7 @@ class SubjectListStudentFragment : DaggerFragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                (subjectList.adapter as SubjectListAdapter).filter.filter(newText)
+                (subjectList.adapter as SubjectListStudentAdapter).filter.filter(newText)
                 return true
             }
         })
