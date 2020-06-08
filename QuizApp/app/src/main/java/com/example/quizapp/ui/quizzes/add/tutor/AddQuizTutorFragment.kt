@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -14,15 +16,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizapp.MainActivity
 
 import com.example.quizapp.R
+import com.example.quizapp.closeKeyboard
 import com.example.quizapp.dto.Question
 import com.example.quizapp.dto.QuizDto
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.add_quiz_tutor_fragment.*
+import javax.inject.Inject
 
 class AddQuizTutorFragment : DaggerFragment() {
 
-    private lateinit var viewModel: AddQuizTutorViewModel
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel: AddQuizTutorViewModel by viewModels { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +39,6 @@ class AddQuizTutorFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AddQuizTutorViewModel::class.java)
         val quizAdapter = NewQuizAdapter()
         quiz.apply {
             layoutManager = LinearLayoutManager(activity)
@@ -55,17 +60,26 @@ class AddQuizTutorFragment : DaggerFragment() {
             quizAdapter.notifyDataSetChanged()
         }
 
+        nameEditText.addTextChangedListener {
+            nameLayout.error = null
+        }
+
         saveButton.setOnClickListener {
-            val quiz = QuizDto().apply {
-                name = nameEditText.text.toString()
-                questions = quizAdapter.questions
+            if (nameEditText.text.toString().isNotEmpty()) {
+                val quiz = QuizDto().apply {
+                    name = nameEditText.text.toString()
+                    questions = quizAdapter.questions
+                }
+                val subject = subjectDropdown.text.toString()
+                viewModel.addQuiz(quiz, subject)
+            } else {
+                nameLayout.error = "Name cannot be empty"
             }
-            val subject = subjectDropdown.text.toString()
-            viewModel.addQuiz(quiz, subject)
         }
 
         viewModel.addQuizResult.observe(viewLifecycleOwner, Observer {
             if (it.success != null) {
+                closeKeyboard()
                 findNavController().navigate(AddQuizTutorFragmentDirections.actionAddQuizTutorFragmentToQuizzesTutorFragment())
             } else if (it.error != null) {
                 Snackbar.make(view!!, "Cannot add quiz", Snackbar.LENGTH_SHORT).show()
@@ -77,6 +91,7 @@ class AddQuizTutorFragment : DaggerFragment() {
         mainActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
         mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
+            closeKeyboard()
             mainActivity.onBackPressed()
         }
     }

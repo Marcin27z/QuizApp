@@ -2,15 +2,15 @@ package com.example.quizbackend.fcm
 
 import com.google.firebase.messaging.*
 import org.springframework.stereotype.Service
-import java.time.Duration
 
 @Service
 class FCMService {
 
-  fun sendMessage(topic: String, messageString: String) {
+  fun notifyNewQuiz(topic: String, quizName: String) {
     val message = Message
         .builder()
-        .putData("value", messageString)
+        .putData("quizName", quizName)
+        .putData("subject", topic)
         .setTopic(topic)
 //        .setNotification(Notification(topic, messageString))
 //        .setAndroidConfig(AndroidConfig
@@ -24,6 +24,5 @@ class FCMService {
 //            .build())
         .build ()
     val response = FirebaseMessaging.getInstance().send(message)
-    println(messageString)
   }
 }

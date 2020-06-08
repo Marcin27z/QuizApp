@@ -20,7 +20,7 @@ class ServiceGenerator(context: Context) {
     private var mUsername: String? = null
     private var mPassword: String? = null
 
-    private val API_BASE_URL = "https://192.168.1.16:8443"
+    private val API_BASE_URL = "https://192.168.1.11:8443"
     private val httpClient = getUnsafeOkHttpClientBuilder(context)
     private val builder = Retrofit.Builder()
         .baseUrl(API_BASE_URL)

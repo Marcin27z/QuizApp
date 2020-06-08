@@ -19,11 +19,7 @@ class HomeStudentViewModel @Inject constructor(private val commonService: Common
     }
     val text: LiveData<String> = _text
 
-    init {
-        subscribeToSubjects()
-    }
-
-    private fun subscribeToSubjects() {
+    fun subscribeToSubjects() {
         val call = commonService.getSubjects()
         call.enqueue(object : Callback<List<SubjectInfo>?> {
 

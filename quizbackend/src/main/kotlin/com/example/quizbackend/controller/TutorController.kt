@@ -1,6 +1,5 @@
 package com.example.quizbackend.controller
 
-import com.example.quizbackend.dto.QuizInfo
 import com.example.quizbackend.dto.QuizInfoTutor
 import com.example.quizbackend.dto.SolutionInfo
 import com.example.quizbackend.entity.Quiz
@@ -34,14 +33,17 @@ class TutorController {
   }
 
   @PostMapping("/createSubject/{subjectName}")
-  fun createSubject(principal: Principal, @PathVariable subjectName: String) {
-    subjectService.addSubject(subjectName, principal.name)
+  fun createSubject(principal: Principal, @PathVariable subjectName: String): Boolean {
+    return subjectService.addSubject(subjectName, principal.name)
   }
 
   @PostMapping("/addQuiz/{subjectName}")
-  fun addQuizToSubject(@RequestBody quiz: Quiz, @PathVariable subjectName: String) {
-    quizService.addQuiz(quiz, subjectName)
-    fcmService.sendMessage(subjectName, quiz.name)
+  fun addQuizToSubject(@RequestBody quiz: Quiz, @PathVariable subjectName: String): Boolean {
+    if (quizService.addQuiz(quiz, subjectName)) {
+      fcmService.notifyNewQuiz(subjectName, quiz.name)
+      return true
+    }
+    return false
   }
 
   @GetMapping("/solutions/{quizName}")

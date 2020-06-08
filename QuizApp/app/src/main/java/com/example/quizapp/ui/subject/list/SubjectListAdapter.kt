@@ -29,9 +29,6 @@ class SubjectListAdapter(private val subjectList: List<SubjectInfo>, private val
         holder.itemView.setOnClickListener {
             itemListener.onItemClick(holder.itemView.subjectTitle.text.toString())
         }
-        holder.itemView.deleteButton.setOnClickListener {
-
-        }
     }
 
     override fun getFilter(): Filter {

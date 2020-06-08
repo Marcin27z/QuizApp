@@ -15,14 +15,19 @@ class SubjectService {
   @Autowired
   private lateinit var userRepository: UserRepository
 
-  fun addSubject(subjectName: String, userName: String) {
+  fun addSubject(subjectName: String, userName: String): Boolean {
+    subjectRepository.findByName(subjectName)?.let {
+      return false
+    }
     userRepository.findByUsername(userName)?.let { user ->
       val subject = Subject().apply {
         name = subjectName
         users = mutableListOf(user)
       }
       subjectRepository.save(subject)
+      return true
     }
+    return false
   }
 
   fun subscribeToSubject(subjectName: String, userName: String) {
@@ -40,7 +45,7 @@ class SubjectService {
 
   fun deleteSubject(subjectName: String, username: String) {
     subjectRepository.findByName(subjectName)?.let { subject ->
-      userRepository.findByUsername(username)?.let  {user ->
+      userRepository.findByUsername(username)?.let { user ->
         if (subject.users.contains(user)) {
           subjectRepository.delete(subject)
         }
@@ -49,11 +54,11 @@ class SubjectService {
   }
 
   fun unsubscribeFromSubject(subjectName: String, userName: String) {
-    userRepository.findByUsername(userName)?.let { user ->
-      subjectRepository.findByName(subjectName)?.let { subject ->
-        user.subjects.remove(subject)
+    subjectRepository.findByName(subjectName)?.let { subject ->
+      userRepository.findByUsername(userName)?.let { user ->
+        subject.users.remove(user)
       }
-      userRepository.save(user)
+      subjectRepository.save(subject)
     }
   }
 }

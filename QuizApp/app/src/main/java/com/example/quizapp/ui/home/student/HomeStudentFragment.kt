@@ -34,6 +34,7 @@ class HomeStudentFragment : DaggerFragment() {
                 }
             })
         val root = inflater.inflate(R.layout.fragment_home_student, container, false)
+        viewModel.subscribeToSubjects()
         root.quizzes.setOnClickListener {
             findNavController().navigate(HomeStudentFragmentDirections.actionHomeStudentFragmentToQuizzesStudentFragment())
         }
@@ -50,6 +51,10 @@ class HomeStudentFragment : DaggerFragment() {
 
         args.subject?.let {
             findNavController().navigate(HomeStudentFragmentDirections.actionHomeStudentFragmentToQuizzesStudentFragment(it))
+        }
+
+        args.quiz?.let {
+            findNavController().navigate(HomeStudentFragmentDirections.actionHomeStudentFragmentToQuestionFragment(it))
         }
         return root
     }

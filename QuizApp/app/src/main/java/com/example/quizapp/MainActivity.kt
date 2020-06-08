@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import dagger.android.support.DaggerAppCompatActivity
@@ -16,16 +17,13 @@ class MainActivity : DaggerAppCompatActivity() {
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel by viewModels<MainActivityViewModel> { factory }
 
-    val navController by lazy { findNavController(R.id.nav_host_fragment) }
+    private val navController by lazy { findNavController(R.id.nav_host_fragment) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        intent.getStringExtra("topic")?.let {
-            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
-        }
         intent.getStringExtra("quiz")?.let {
-            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            NotificationManagerCompat.from(this).cancel(intent.getIntExtra("id", 0))
         }
         if (viewModel.once) {
             viewModel.once = false

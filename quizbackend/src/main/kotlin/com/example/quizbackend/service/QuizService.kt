@@ -26,14 +26,19 @@ class QuizService {
   @Autowired
   private lateinit var solutionRepository: SolutionRepository
 
-  fun addQuiz(quiz: Quiz, subjectName: String) {
+  fun addQuiz(quiz: Quiz, subjectName: String): Boolean {
+    quizRepository.findByName(quiz.name)?.let {
+      return false
+    }
     subjectRepository.findByName(subjectName)?.let {
       quiz.questions.forEach { question ->
         question.quiz = quiz
       }
       quiz.subject = it
       quizRepository.save(quiz)
+      return true
     }
+    return false
   }
 
   fun getQuizByName(quizName: String): Quiz? {

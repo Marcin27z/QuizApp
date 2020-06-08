@@ -28,8 +28,7 @@
 
     <Button
         android:id="@+id/quizzes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MyMenuButton"
         android:text="@string/menu_quizzes"
         app:layout_constraintBottom_toTopOf="@+id/subjects"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,8 +37,7 @@
 
     <Button
         android:id="@+id/subjects"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MyMenuButton"
         android:text="@string/subjects"
         app:layout_constraintBottom_toTopOf="@+id/resultsButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,8 +46,7 @@
 
     <Button
         android:id="@+id/logOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MyMenuButton"
         android:text="@string/log_out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,8 +55,7 @@
 
     <Button
         android:id="@+id/resultsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MyMenuButton"
         android:text="Results"
         app:layout_constraintBottom_toTopOf="@+id/logOut"
         app:layout_constraintEnd_toEndOf="parent"

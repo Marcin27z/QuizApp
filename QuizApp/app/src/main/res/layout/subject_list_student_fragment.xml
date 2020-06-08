@@ -25,6 +25,7 @@
         android:layout_height="match_parent"
 
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:itemCount="3"
         tools:listitem="@layout/subject_recycler_student_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -22,11 +22,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         if (remoteMessage.data.isNotEmpty()) {
-            println(remoteMessage.data["value"])
             createNotificationChannel()
 
             // Create an Intent for the activity you want to start
-            val resultIntent = Intent(this, MainActivity::class.java).putExtra("topic", remoteMessage.data["value"])
+            val resultIntent = Intent(this, MainActivity::class.java)
+                .putExtra("topic", remoteMessage.data["subject"])
+                .putExtra("id", i)
 // Create the TaskStackBuilder
             val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(this).run {
                 // Add the intent, which inflates the back stack
@@ -36,7 +37,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             }
 
             // Create an Intent for the activity you want to start
-            val solveIntent = Intent(this, MainActivity::class.java).putExtra("quiz", "Colors")
+            val solveIntent = Intent(this, MainActivity::class.java)
+                .putExtra("quiz", remoteMessage.data["quizName"])
+                .putExtra("id", i)
 // Create the TaskStackBuilder
             val solvePendingIntent: PendingIntent? = TaskStackBuilder.create(this).run {
                 // Add the intent, which inflates the back stack
@@ -51,10 +54,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 .setContentIntent(resultPendingIntent)
                 .setSmallIcon(R.drawable.ic_sentiment_satisfied_black_24dp)
                 .setContentTitle("New quiz")
-                .setContentText("Much longer text that cannot fit one line...")
+                .setContentText("New quiz named ${remoteMessage.data["quizName"]} from subject ${remoteMessage.data["subject"]} is available.")
                 .setStyle(
                     NotificationCompat.BigTextStyle()
-                        .bigText("Much longer text that cannot fit one line...")
+                        .bigText("New quiz named ${remoteMessage.data["quizName"]} from subject ${remoteMessage.data["subject"]} is available.")
                 )
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)

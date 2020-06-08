@@ -1,7 +1,5 @@
 package com.example.quizbackend.controller
 
-import com.example.quizbackend.dto.QuizInfo
-import com.example.quizbackend.dto.SolutionInfo
 import com.example.quizbackend.dto.SubjectInfo
 import com.example.quizbackend.entity.Quiz
 import com.example.quizbackend.fcm.FCMService
@@ -38,7 +36,7 @@ class CommonController {
 
   @GetMapping("/quiz/mock/add/{topic}")
   fun mockNewQuiz(@PathVariable topic: String, @RequestParam quizName: String) {
-    fcmService.sendMessage(topic, quizName)
+    fcmService.notifyNewQuiz(topic, quizName)
   }
 
 }

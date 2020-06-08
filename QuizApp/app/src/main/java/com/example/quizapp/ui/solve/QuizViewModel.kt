@@ -28,7 +28,7 @@ class QuizViewModel @Inject constructor(private val commonService: CommonService
     val points: LiveData<Int> = _points
 
     private val _question = MutableLiveData<String>().apply {
-        value = "This is tools Fragment"
+        value = ""
     }
 
     val question: LiveData<String> = _question
@@ -72,7 +72,7 @@ class QuizViewModel @Inject constructor(private val commonService: CommonService
 
     fun updateView(question: Int) {
         _question.value = quiz?.questions?.get(question)?.question
-        _answers.value = quiz?.questions?.get(question)?.answers
+        _answers.value = quiz?.questions?.get(question)?.answers?.shuffled()
         correctAnswer = quiz?.questions?.get(question)?.correctAnswer
     }
 

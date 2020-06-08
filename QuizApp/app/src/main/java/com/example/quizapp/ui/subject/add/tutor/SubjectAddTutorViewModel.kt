@@ -3,8 +3,10 @@ package com.example.quizapp.ui.subject.add.tutor
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.quizapp.retrofit.ServiceGenerator
 import com.example.quizapp.retrofit.TutorService
+import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,18 +19,13 @@ class SubjectAddTutorViewModel @Inject constructor(private val tutorService: Tut
     val addStatus: LiveData<Boolean> = _addStatus
 
     fun addSubject(name: String) {
-        val call = tutorService.createSubject(name)
-        call.enqueue(object: Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful) {
-                    _addStatus.value = true
-                } else {
-                }
+        viewModelScope.launch {
+            try {
+                _addStatus.value = tutorService.createSubject(name)
+            } catch (e: Exception) {
+                _addStatus.value = false
             }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-            }
-        })
+        }
     }
 
     fun resetStatus() {

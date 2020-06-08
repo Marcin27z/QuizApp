@@ -73,7 +73,7 @@ class QuestionFragment : DaggerFragment(), PopUp.OnTouchListener {
         mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.title = args.quizName
         toolbar.setNavigationOnClickListener {
-            mainActivity.onBackPressed()
+            findNavController().popBackStack()
         }
     }
 

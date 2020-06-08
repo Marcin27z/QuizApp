@@ -12,13 +12,13 @@ interface TutorService {
 
 
     @POST("/tutor/createSubject/{subjectName}")
-    fun createSubject(@Path("subjectName") subjectName: String): Call<ResponseBody>
+    suspend fun createSubject(@Path("subjectName") subjectName: String): Boolean
 
     @POST("/tutor/deleteSubject/{subjectName}")
     suspend fun deleteSubject(@Path("subjectName") subjectName: String): Call<ResponseBody>
 
     @POST("/tutor/addQuiz/{subjectName}")
-    fun addQuizToSubject(@Body quiz: QuizDto, @Path("subjectName") subjectName: String): Call<ResponseBody>
+    suspend fun addQuizToSubject(@Body quiz: QuizDto, @Path("subjectName") subjectName: String): Boolean
 
     @GET("/tutor/solutions/{quizName}")
     fun getSolutionsForQuiz(@Path("quizName") quizName: String): Call<List<SolutionInfo>>

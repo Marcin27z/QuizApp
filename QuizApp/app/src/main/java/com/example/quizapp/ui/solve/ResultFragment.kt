@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.quizapp.MainActivity
@@ -29,13 +30,21 @@ class ResultFragment: DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this,
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().navigate(ResultFragmentDirections.actionResultFragmentToQuizzesStudentFragment())
+                }
+            })
+
         val mainActivity = (activity as MainActivity)
         mainActivity.setSupportActionBar(toolbar)
         mainActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
         mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.title = args.quizName
         toolbar.setNavigationOnClickListener {
-            findNavController().popBackStack(R.id.quizzesStudentFragment, false)
+            findNavController().navigate(ResultFragmentDirections.actionResultFragmentToQuizzesStudentFragment())
         }
     }
 }

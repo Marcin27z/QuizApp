@@ -120,7 +120,7 @@ class LoginFragment : DaggerFragment() {
             mCredentialsManager.saveCredentials(username.text.toString(), password.text.toString())
         }
         if (role == Role.ROLE_STUDENT) {
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeStudentFragment(args.quiz, args.topic))
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeStudentFragment(args.topic, args.quiz))
         } else if (role == Role.ROLE_TUTOR) {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeTutorFragment())
         }
