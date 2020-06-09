@@ -1,2 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <!--    Registration    -->
+    <string name="registration">Rejestracja</string>
+    <string name="please_fill_name">Proszę wypełnić imię</string>
+    <string name="please_fill_surname">Proszę wypełnić nazwisko</string>
+    <string name="please_fill_login">Proszę wypełnić login</string>
+    <string name="please_fill_password">Proszę wypełnić hasło</string>
+    <string name="please_fill_repeat_password">Proszę wypełnić powtórzenie hasła</string>
+    <string name="passwords_dont_match">Hasła nie są takie same</string>
+    <string name="registration_failed">Rejestracja się nie udała</string>
+    <string name="name">Imię</string>
+    <string name="surname">Nazwisko</string>
+    <string name="login">Login</string>
+    <string name="password">Hasło</string>
+    <string name="repeat_password">Powtórzenie hasła</string>
+    <string name="student_mode">Uczeń</string>
+    <string name="tutor_mode">Nauczyciel</string>
+    <string name="register">Zarejestruj się</string>
+
+    <!-- Login -->
+    <string name="sign_in">Zaloguj się</string>
+    <string name="prompt_login">Login</string>
+    <string name="prompt_password">Hasło</string>
+
+    <!-- Home -->
+    <string name="quizzes">Quizy</string>
+    <string name="subjects">Tematy</string>
+    <string name="log_out">Wyloguj się</string>
+    <string name="results">Wyniki</string>
+
+    <!-- Create/Add subject -->
+    <string name="create_subject">Stwórz temat</string>
+    <string name="add_subject">Dodaj temat</string>
+    <string name="subject_name">Nazwa tematu</string>
+    <string name="add">Dodaj</string>
+    <string name="create">Stwórz</string>
+
+    <!-- Add quiz -->
+    <string name="correct_answer">Poprawna odpowiedź</string>
+    <string name="first_incorrect_answer">Pierwsza zła odpowiedź</string>
+    <string name="second_incorrect_answer">Druga zła odpowiedź</string>
+    <string name="third_incorrect_answer">Trzecia zła odpowiedź</string>
+    <string name="question">Pytanie</string>
+    <string name="question_number">Pytanie %1$d</string>
+    <string name="quiz_name">Nazwa quizu</string>
+    <string name="subject">Temat</string>
+    <string name="save">Zapisz</string>
+    <string name="add_question">Dodaj pytanie</string>
+    <string name="create_quiz">Stwórz quiz</string>
+
+    <!-- Results -->
+    <string name="you_ve_got">Wynik</string>
+    <string name="points">Punktów</string>
+
+    <!-- Popup -->
+    <string name="correct">Dobra odpowiedź</string>
+    <string name="wrong">Zła odpowiedź</string>
+
+    <!-- Errors -->
+    <string name="cannot_add_quiz">Nie można dodać quizu</string>
+    <string name="name_cannot_be_empty">Nazwa nie może być pusta</string>
+    <string name="cannot_login">Nie można zalogować</string>
+
+    <string name="no_subjects">Nie masz tematów.\n Naciśnij <b>+</b> żeby dodać nowy temat.</string>
+    <string name="network_error">Błąd sieci</string>
+</resources>

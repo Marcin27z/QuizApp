@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_scrollFlags="scroll|enterAlways"
             app:menu="@menu/search_menu"
-            app:title="Quizzes" />
+            app:title="@string/quizzes" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

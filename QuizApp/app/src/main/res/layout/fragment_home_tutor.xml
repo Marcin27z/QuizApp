@@ -29,7 +29,7 @@
     <Button
         android:id="@+id/quizzes"
         style="@style/MyMenuButton"
-        android:text="@string/menu_quizzes"
+        android:text="@string/quizzes"
         app:layout_constraintBottom_toTopOf="@+id/subjects"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

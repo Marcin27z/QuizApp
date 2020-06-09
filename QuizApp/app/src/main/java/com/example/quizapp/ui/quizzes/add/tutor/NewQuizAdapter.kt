@@ -33,7 +33,7 @@ class NewQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val questionHolder = holder as QuestionViewHolder
         val itemView = questionHolder.itemView
         val currentQuestion = questions[position]
-        itemView.questionNumberTextView.text = "Question ${position + 1}"
+        itemView.questionNumberTextView.text = holder.itemView.resources.getString(R.string.question_number, position + 1)
         itemView.questionEditText.addTextChangedListener {
             currentQuestion.question = it.toString()
         }

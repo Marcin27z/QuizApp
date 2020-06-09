@@ -39,7 +39,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:title="Quizzes" />
+            app:title="@string/quizzes" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

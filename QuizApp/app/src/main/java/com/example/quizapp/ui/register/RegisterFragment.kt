@@ -65,7 +65,7 @@ class RegisterFragment : DaggerFragment() {
             if (it.toString() != "") {
                 passwordLayout.error = null
             }
-            if (passwordRepeatLayout.error == "Passwords don't match") {
+            if (passwordRepeatLayout.error == resources.getString(R.string.passwords_dont_match)) {
                 passwordRepeatLayout.error = null
             }
         }
@@ -73,7 +73,7 @@ class RegisterFragment : DaggerFragment() {
             if (it.toString() != "") {
                 passwordRepeatLayout.error = null
             }
-            if (passwordLayout.error == "Passwords don't match") {
+            if (passwordLayout.error == resources.getString(R.string.passwords_dont_match)) {
                 passwordLayout.error = null
             }
         }
@@ -91,7 +91,7 @@ class RegisterFragment : DaggerFragment() {
                     surnameEditText.text.toString(),
                     loginEditText.text.toString(),
                     passwordEditText.text.toString(),
-                    if (roleRadioGroup.findViewById<RadioButton>(roleRadioGroup.checkedRadioButtonId).text.toString() == "Student") {
+                    if (roleRadioGroup.findViewById<RadioButton>(roleRadioGroup.checkedRadioButtonId).text.toString() == resources.getString(R.string.student_mode)) {
                         Role.ROLE_STUDENT
                     } else
                         Role.ROLE_TUTOR
@@ -111,7 +111,7 @@ class RegisterFragment : DaggerFragment() {
 
     private fun showRegisterFailed() {
 //        Toast.makeText(context, "Registration failed", Toast.LENGTH_LONG).show()
-        Snackbar.make(view!!, "Registration failed", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(view!!, resources.getString(R.string.registration_failed), Snackbar.LENGTH_SHORT).show()
     }
 
     private fun finishRegister() {
@@ -121,29 +121,29 @@ class RegisterFragment : DaggerFragment() {
     private fun validateForm(): Boolean {
         var error = false
         if (nameEditText.text.isNullOrEmpty()) {
-            nameLayout.error = "Please fill name"
+            nameLayout.error = resources.getString(R.string.please_fill_name)
             error = true
         }
         if (surnameEditText.text.isNullOrEmpty()) {
-            surnameLayout.error = "Please fill surname"
+            surnameLayout.error = resources.getString(R.string.please_fill_surname)
             error = true
         }
         if (loginEditText.text.isNullOrEmpty()) {
-            loginLayout.error = "Please fill login"
+            loginLayout.error = resources.getString(R.string.please_fill_login)
             error = true
         }
         if (passwordEditText.text.isNullOrEmpty()) {
-            passwordLayout.error = "Please fill password"
+            passwordLayout.error = resources.getString(R.string.please_fill_password)
             error = true
         } else if (passwordEditText.text.toString() != passwordRepeatEditText.text.toString()) {
-            passwordLayout.error = "Passwords don't match"
+            passwordLayout.error = resources.getString(R.string.passwords_dont_match)
             error = true
         }
         if (passwordRepeatEditText.text.isNullOrEmpty()) {
-            passwordRepeatLayout.error = "Please fill repeat password"
+            passwordRepeatLayout.error = resources.getString(R.string.please_fill_repeat_password)
             error = true
         } else if (passwordEditText.text.toString() != passwordRepeatEditText.text.toString()) {
-            passwordRepeatLayout.error = "Passwords don't match"
+            passwordRepeatLayout.error = resources.getString(R.string.passwords_dont_match)
             error = true
         }
         return !error

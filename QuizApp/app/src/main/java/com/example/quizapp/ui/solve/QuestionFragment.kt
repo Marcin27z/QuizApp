@@ -78,15 +78,15 @@ class QuestionFragment : DaggerFragment(), PopUp.OnTouchListener {
     }
 
     private fun onWrongAnswerClick() {
-        Toast.makeText(this.context, "Wrong Answer", Toast.LENGTH_LONG).show()
+//        Toast.makeText(this.context, "Wrong Answer", Toast.LENGTH_LONG).show()
         popUp = PopUp(activity!!.layoutInflater.inflate(R.layout.popup_window, null), activity!!)
-        popUp.show(this, "Wrong Answer")
+        popUp.show(this, resources.getString(R.string.wrong))
     }
 
     private fun onCorrectAnswerClick() {
-        Toast.makeText(this.context, "Correct Answer", Toast.LENGTH_LONG).show()
+//        Toast.makeText(this.context, "Correct Answer", Toast.LENGTH_LONG).show()
         popUp = PopUp(activity!!.layoutInflater.inflate(R.layout.popup_window, null), activity!!)
-        popUp.show(this, "Correct Answer")
+        popUp.show(this, resources.getString(R.string.correct))
         viewModel.addPoint()
     }
 

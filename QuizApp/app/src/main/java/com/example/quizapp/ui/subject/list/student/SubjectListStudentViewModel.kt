@@ -26,8 +26,8 @@ class SubjectListStudentViewModel @Inject constructor(private val commonService:
     private val _subjects = MutableLiveData<List<SubjectInfo>>()
     val subjects: LiveData<List<SubjectInfo>> = _subjects
 
-    private val _message = MutableLiveData<SpannableString>()
-    val message: LiveData<SpannableString> = _message
+    private val _message = MutableLiveData<Int>()
+    val message: LiveData<Int> = _message
 
     init {
         getSubjects()
@@ -41,20 +41,21 @@ class SubjectListStudentViewModel @Inject constructor(private val commonService:
                 if (response.isSuccessful) {
                     _subjects.value = response.body()
                     if (response.body().isNullOrEmpty()) {
-                        _message.value = SpannableString("You have no subjects.\nPlease click + to add new subject.").apply {
+                        _message.value = 0
+                            SpannableString("You have no subjects.\nPlease click + to add new subject.").apply {
                             setSpan(StyleSpan(BOLD), 35, 36, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                         }
                     } else {
-                        _message.value = SpannableString("")
+                        _message.value = 1
                     }
 
                 } else {
-                    _message.value = SpannableString("Network error occured.")
+                    _message.value = 2
                 }
             }
 
             override fun onFailure(call: Call<List<SubjectInfo>?>, t: Throwable) {
-                _message.value = SpannableString("Network error occured.")
+                _message.value = 2
             }
         })
     }

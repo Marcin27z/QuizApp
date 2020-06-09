@@ -84,7 +84,6 @@ class CredentialsManager(val activity: MainActivity, val loginViewModel: LoginVi
 
         mCredentialsClient.save(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(activity, "Credentials saved", Toast.LENGTH_SHORT).show()
                 return@addOnCompleteListener
             }
             val e = task.exception
@@ -95,11 +94,9 @@ class CredentialsManager(val activity: MainActivity, val loginViewModel: LoginVi
                     e.startResolutionForResult(activity, RC_SAVE)
                 } catch (exception: SendIntentException) {
                     // Could not resolve the request
-                    Toast.makeText(activity, "Save failed", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 // Request has no resolution
-                Toast.makeText(activity, "Save failed", Toast.LENGTH_SHORT).show()
             }
         }
     }

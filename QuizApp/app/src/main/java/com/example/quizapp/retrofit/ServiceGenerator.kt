@@ -59,6 +59,8 @@ class ServiceGenerator(context: Context) {
                 retrofit = builder.build()
             }
         }
+        builder.client(httpClient.build())
+        retrofit = builder.build()
         return retrofit.create(serviceClass)
     }
 }

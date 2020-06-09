@@ -66,12 +66,10 @@ class LoginFragment : DaggerFragment() {
                 val credential: Credential? = data?.getParcelableExtra(Credential.EXTRA_KEY)
                 mCredentialsManager.onCredentialRetrieved(credential)
             } else {
-                Toast.makeText(activity, "Credential Read Failed", Toast.LENGTH_SHORT).show()
             }
         }
         if (requestCode == RC_SAVE) {
             if (resultCode == AppCompatActivity.RESULT_OK) {
-                Toast.makeText(activity, "Credentials saved", Toast.LENGTH_SHORT).show();
             } else {
             }
         }
@@ -128,7 +126,7 @@ class LoginFragment : DaggerFragment() {
 
     private fun showLoginFailed() {
 //        Toast.makeText(activity, "Cannot login", Toast.LENGTH_SHORT).show()
-        Snackbar.make(view!!, "Cannot login", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(view!!, resources.getString(R.string.cannot_login), Snackbar.LENGTH_SHORT).show()
     }
 }
 

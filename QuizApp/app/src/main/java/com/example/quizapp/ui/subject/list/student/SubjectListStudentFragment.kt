@@ -41,7 +41,11 @@ class SubjectListStudentFragment : DaggerFragment() {
             findNavController().navigate(SubjectListStudentFragmentDirections.actionSubjectListStudentFragmentToSubjectAddStudentFragment())
         }
         viewModel.message.observe(viewLifecycleOwner, Observer {
-            tvMessage.text = it
+            tvMessage.text = when(it) {
+                0 -> resources.getText(R.string.no_subjects)
+                2 -> resources.getText(R.string.network_error)
+                else -> ""
+            }
         })
     }
 

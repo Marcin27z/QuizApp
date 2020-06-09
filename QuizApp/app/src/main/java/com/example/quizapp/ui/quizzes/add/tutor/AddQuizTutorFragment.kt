@@ -73,7 +73,7 @@ class AddQuizTutorFragment : DaggerFragment() {
                 val subject = subjectDropdown.text.toString()
                 viewModel.addQuiz(quiz, subject)
             } else {
-                nameLayout.error = "Name cannot be empty"
+                nameLayout.error = resources.getString(R.string.name_cannot_be_empty)
             }
         }
 
@@ -82,7 +82,7 @@ class AddQuizTutorFragment : DaggerFragment() {
                 closeKeyboard()
                 findNavController().navigate(AddQuizTutorFragmentDirections.actionAddQuizTutorFragmentToQuizzesTutorFragment())
             } else if (it.error != null) {
-                Snackbar.make(view!!, "Cannot add quiz", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view!!, resources.getString(R.string.cannot_add_quiz), Snackbar.LENGTH_SHORT).show()
             }
         })
 
