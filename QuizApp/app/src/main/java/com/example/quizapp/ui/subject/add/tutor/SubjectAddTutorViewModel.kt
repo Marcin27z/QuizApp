@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.quizapp.repository.Repository
 import com.example.quizapp.retrofit.ServiceGenerator
 import com.example.quizapp.retrofit.TutorService
 import kotlinx.coroutines.launch
@@ -13,7 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class SubjectAddTutorViewModel @Inject constructor(private val tutorService: TutorService): ViewModel() {
+class SubjectAddTutorViewModel @Inject constructor(private val repository: Repository): ViewModel() {
 
     private val _addStatus = MutableLiveData<Boolean>()
     val addStatus: LiveData<Boolean> = _addStatus
@@ -21,7 +22,7 @@ class SubjectAddTutorViewModel @Inject constructor(private val tutorService: Tut
     fun addSubject(name: String) {
         viewModelScope.launch {
             try {
-                _addStatus.value = tutorService.createSubject(name)
+                _addStatus.value = repository.createSubject(name)
             } catch (e: Exception) {
                 _addStatus.value = false
             }

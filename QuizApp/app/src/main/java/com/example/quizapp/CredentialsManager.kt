@@ -1,15 +1,11 @@
 package com.example.quizapp
 
-import android.R.attr
 import android.content.IntentSender.SendIntentException
-import android.widget.Toast
-import com.example.quizapp.dto.Role
 import com.example.quizapp.ui.login.LoginViewModel
 import com.google.android.gms.auth.api.credentials.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 
 
 class CredentialsManager(val activity: MainActivity, val loginViewModel: LoginViewModel) {

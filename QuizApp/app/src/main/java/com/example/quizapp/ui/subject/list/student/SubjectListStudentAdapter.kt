@@ -8,9 +8,8 @@ import androidx.appcompat.view.ActionMode
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quizapp.R
-import com.example.quizapp.dto.SubjectInfo
+import com.example.quizapp.models.SubjectInfo
 import com.example.quizapp.ui.subject.list.SubjectListItemListener
-import kotlinx.android.synthetic.main.subject_recycler_item.view.*
 import kotlinx.android.synthetic.main.subject_recycler_item.view.subjectTitle
 import kotlinx.android.synthetic.main.subject_recycler_student_item.view.*
 

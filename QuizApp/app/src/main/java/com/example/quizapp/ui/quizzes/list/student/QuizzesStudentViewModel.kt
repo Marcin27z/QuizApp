@@ -3,15 +3,15 @@ package com.example.quizapp.ui.quizzes.list.student
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.quizapp.dto.QuizInfo
-import com.example.quizapp.retrofit.ServiceGenerator
+import com.example.quizapp.models.QuizInfo
+import com.example.quizapp.repository.Repository
 import com.example.quizapp.retrofit.StudentService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class QuizzesStudentViewModel @Inject constructor(private val studentService: StudentService): ViewModel() {
+class QuizzesStudentViewModel @Inject constructor(private val repository: Repository): ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is tools Fragment"
@@ -24,9 +24,9 @@ class QuizzesStudentViewModel @Inject constructor(private val studentService: St
     fun getQuizzes(subjectName: String? = null) {
         val call: Call<List<QuizInfo>?>? =
         if (subjectName == null) {
-            studentService.getQuizzesInfo()
+            repository.getQuizzesInfo()
         } else {
-            studentService.getQuizzesInfoForSubject(subjectName)
+            repository.getQuizzesInfoForSubject(subjectName)
         }
         call?.enqueue(object: Callback<List<QuizInfo>?> {
 

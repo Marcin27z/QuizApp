@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.quizapp.dto.QuizInfoTutor
-import com.example.quizapp.retrofit.ServiceGenerator
+import com.example.quizapp.models.QuizInfoTutor
+import com.example.quizapp.repository.Repository
 import com.example.quizapp.retrofit.TutorService
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
-class QuizzesTutorViewModel @Inject constructor(private val tutorService: TutorService): ViewModel() {
+class QuizzesTutorViewModel @Inject constructor(private val repository: Repository): ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is tools Fragment"
@@ -22,9 +22,9 @@ class QuizzesTutorViewModel @Inject constructor(private val tutorService: TutorS
     fun getQuizzes(subjectName: String? = null) {
         quizzes = liveData(Dispatchers.IO) {
             emit(if (subjectName == null) {
-                tutorService.getQuizzesInfo()
+                repository.getQuizzesInfoTutor()
             } else {
-                tutorService.getQuizzesInfoForSubject(subjectName)
+                repository.getQuizzesInfoTutorForSubject(subjectName)
             })
         }
     }

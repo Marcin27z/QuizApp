@@ -19,7 +19,9 @@ import javax.inject.Singleton
     ContextModule::class,
     ViewModelModule::class,
     ViewModelFactoryModule::class,
-    RemoteModule::class
+    RemoteModule::class,
+    DatabaseModule::class,
+    RepositoryModule::class
 ])
 interface AppComponent: AndroidInjector<QuizApplication> {
 

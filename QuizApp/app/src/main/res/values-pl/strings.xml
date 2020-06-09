@@ -22,6 +22,7 @@
     <string name="sign_in">Zaloguj się</string>
     <string name="prompt_login">Login</string>
     <string name="prompt_password">Hasło</string>
+    <string name="results_offline">Wyniki offline</string>
 
     <!-- Home -->
     <string name="quizzes">Quizy</string>
@@ -35,6 +36,8 @@
     <string name="subject_name">Nazwa tematu</string>
     <string name="add">Dodaj</string>
     <string name="create">Stwórz</string>
+    <string name="cannot_add_subject">Nie można dodać tematu.</string>
+    <string name="cannot_create_subject">Nie można utworzyć tematu.</string>
 
     <!-- Add quiz -->
     <string name="correct_answer">Poprawna odpowiedź</string>
@@ -64,4 +67,10 @@
 
     <string name="no_subjects">Nie masz tematów.\n Naciśnij <b>+</b> żeby dodać nowy temat.</string>
     <string name="network_error">Błąd sieci</string>
+
+    <!-- Exit dialog -->
+    <string name="are_you_sure">Na pewno chcesz wyjść? Wyniki zostaną zapisane i nie będzie możliwe ponowne rozwiązanie quizu.</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+
 </resources>

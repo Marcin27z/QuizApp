@@ -30,8 +30,8 @@ class StudentController {
   }
 
   @GetMapping("/subscribe/{subjectName}")
-  fun subscribeToSubject(principal: Principal, @PathVariable subjectName: String) {
-    subjectService.subscribeToSubject(subjectName, principal.name)
+  fun subscribeToSubject(principal: Principal, @PathVariable subjectName: String): Boolean {
+    return subjectService.subscribeToSubject(subjectName, principal.name)
   }
 
   @GetMapping("/unsubscribe/{subjectName}")
@@ -50,6 +50,13 @@ class StudentController {
     return quizService.getAllUsersQuizzesWithSolution(principal.name).map {
       QuizInfo(it.first, it.second?.let { solution -> SolutionInfo(solution) } )
     }
+  }
+
+  @GetMapping("/solved", produces = ["application/json"])
+  fun getSolvedQuizzesInfo(principal: Principal): List<QuizInfo> {
+    return quizService.getAllUsersQuizzesWithSolution(principal.name).map {
+      QuizInfo(it.first, it.second?.let { solution -> SolutionInfo(solution) } )
+    }.filter { it.solutionInfo != null }
   }
 
   @GetMapping("/quiz/subject/{subjectName}")

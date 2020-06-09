@@ -7,7 +7,7 @@ import android.widget.Filterable
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quizapp.R
-import com.example.quizapp.dto.QuizInfo
+import com.example.quizapp.models.QuizInfo
 import kotlinx.android.synthetic.main.quizzes_recycler_item.view.*
 
 class QuizzesRecyclerAdapter(
@@ -28,7 +28,7 @@ class QuizzesRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: QuizViewHolder, position: Int) {
-        holder.itemView.title.text = filteredQuizzes[position].name
+        holder.itemView.title.text = filteredQuizzes[position].quizName
         holder.itemView.subject.text = filteredQuizzes[position].subject
         holder.itemView.setOnClickListener {
             clickFunction(holder.itemView.title.text.toString())
@@ -45,7 +45,7 @@ class QuizzesRecyclerAdapter(
                     }
                 }
                 return FilterResults().apply {
-                    values = quizzes.filter { it.name.toLowerCase().contains(queryString) }
+                    values = quizzes.filter { it.quizName.toLowerCase().contains(queryString) }
                 }
             }
 

@@ -3,10 +3,9 @@ package com.example.quizapp.ui.register
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.quizapp.dto.Role
-import com.example.quizapp.dto.UserDto
+import com.example.quizapp.models.Role
+import com.example.quizapp.models.UserDto
 import com.example.quizapp.retrofit.RegisterService
-import com.example.quizapp.retrofit.ServiceGenerator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

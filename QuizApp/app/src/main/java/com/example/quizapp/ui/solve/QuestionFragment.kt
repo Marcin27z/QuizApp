@@ -73,7 +73,19 @@ class QuestionFragment : DaggerFragment(), PopUp.OnTouchListener {
         mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.title = args.quizName
         toolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            val dialog = ExitDialogFragment(object : DialogResultListener {
+                override fun onPositive() {
+                    viewModel.submitResult()
+                    findNavController().navigate(QuestionFragmentDirections.actionQuestionFragmentToHomeStudentFragment())
+                }
+
+                override fun onNegative() {
+
+                }
+            })
+            activity?.let {
+                dialog.show(it.supportFragmentManager, "exit")
+            }
         }
     }
 

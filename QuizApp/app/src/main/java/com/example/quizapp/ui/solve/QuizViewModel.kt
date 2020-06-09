@@ -3,10 +3,10 @@ package com.example.quizapp.ui.solve
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.quizapp.dto.Quiz
-import com.example.quizapp.dto.SolutionDto
+import com.example.quizapp.models.Quiz
+import com.example.quizapp.models.SolutionDto
+import com.example.quizapp.repository.Repository
 import com.example.quizapp.retrofit.CommonService
-import com.example.quizapp.retrofit.ServiceGenerator
 import com.example.quizapp.retrofit.StudentService
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -14,7 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class QuizViewModel @Inject constructor(private val commonService: CommonService, private val studentService: StudentService): ViewModel() {
+class QuizViewModel @Inject constructor(private val repository: Repository): ViewModel() {
 
     private var quiz: Quiz? = null
 
@@ -44,7 +44,7 @@ class QuizViewModel @Inject constructor(private val commonService: CommonService
     var correctAnswer: String? = null
 
     fun getQuiz(quizName: String) {
-        val call = commonService.getQuiz(quizName)
+        val call = repository.getQuiz(quizName)
         call.enqueue(object: Callback<Quiz?> {
 
             override fun onResponse(call: Call<Quiz?>, response: Response<Quiz?>) {
@@ -89,8 +89,8 @@ class QuizViewModel @Inject constructor(private val commonService: CommonService
         _points.value = (_points.value ?: 0) + 1
     }
 
-    private fun submitResult() {
-        val call = studentService.submitSolution(SolutionDto().apply {
+    fun submitResult() {
+        val call = repository.submitSolution(SolutionDto().apply {
             quizName = quiz?.name ?: ""
             score = _points.value ?: 0
         })

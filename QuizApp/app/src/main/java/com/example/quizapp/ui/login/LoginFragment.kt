@@ -8,12 +8,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -23,14 +20,12 @@ import com.example.quizapp.CredentialsManager
 import com.example.quizapp.MainActivity
 import com.example.quizapp.R
 import com.example.quizapp.closeKeyboard
-import com.example.quizapp.dto.Role
+import com.example.quizapp.models.Role
 import com.example.quizapp.retrofit.ServiceGenerator
-import com.example.quizapp.ui.home.tutor.HomeTutorViewModel
 import com.google.android.gms.auth.api.credentials.Credential
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.solution_tutor_recycler_item.*
 import javax.inject.Inject
 
 
@@ -109,6 +104,18 @@ class LoginFragment : DaggerFragment() {
 
         if (args.autoLogin) {
             mCredentialsManager.attemptAutoLogin()
+        }
+
+        loginViewModel.getResultsOffline()
+
+        loginViewModel.offlineResults.observe(viewLifecycleOwner, Observer {
+            if (it.isNotEmpty()) {
+                btOfflineResults.visibility = View.VISIBLE
+            }
+        })
+
+        btOfflineResults.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToSolutionsListStudentFragment2())
         }
     }
 

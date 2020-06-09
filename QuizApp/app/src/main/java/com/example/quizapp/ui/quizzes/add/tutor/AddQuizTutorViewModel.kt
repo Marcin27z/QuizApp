@@ -4,21 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.quizapp.dto.QuizDto
-import com.example.quizapp.dto.SubjectInfo
+import com.example.quizapp.models.QuizDto
+import com.example.quizapp.models.SubjectInfo
+import com.example.quizapp.repository.Repository
 import com.example.quizapp.retrofit.CommonService
-import com.example.quizapp.retrofit.ServiceGenerator
 import com.example.quizapp.retrofit.TutorService
 import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
 class AddQuizTutorViewModel @Inject constructor(
-    private val commonService: CommonService,
-    private val tutorService: TutorService): ViewModel() {
+    private val repository: Repository): ViewModel() {
 
     private val _subjectList = MutableLiveData<List<String>>()
     val subjectList: LiveData<List<String>> = _subjectList
@@ -31,7 +29,7 @@ class AddQuizTutorViewModel @Inject constructor(
     }
 
     private fun getSubjects() {
-        val call = commonService.getSubjects()
+        val call = repository.getSubjects()
         call.enqueue(object: Callback<List<SubjectInfo>?> {
 
             override fun onResponse(call: Call<List<SubjectInfo>?>, response: Response<List<SubjectInfo>?>) {
@@ -51,7 +49,7 @@ class AddQuizTutorViewModel @Inject constructor(
     fun addQuiz(quiz: QuizDto, subject: String) {
         viewModelScope.launch {
             try {
-                if (tutorService.addQuizToSubject(quiz, subject)) {
+                if (repository.addQuizToSubject(quiz, subject)) {
                     _addQuizResult.value = AddQuizResult(1, null)
                 } else {
                     _addQuizResult.value = AddQuizResult(null, 1)

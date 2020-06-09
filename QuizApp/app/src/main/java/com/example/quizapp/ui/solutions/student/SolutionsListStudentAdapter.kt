@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quizapp.R
-import com.example.quizapp.dto.QuizInfo
+import com.example.quizapp.models.QuizInfo
 import kotlinx.android.synthetic.main.solution_student_recycler_item.view.*
 
 class SolutionsListStudentAdapter(private val solutions: List<QuizInfo>): RecyclerView.Adapter<SolutionsListStudentAdapter.SolutionStudentViewHolder>() {
@@ -14,7 +14,7 @@ class SolutionsListStudentAdapter(private val solutions: List<QuizInfo>): Recycl
     class SolutionStudentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(solution: QuizInfo) {
             itemView.apply {
-                tvTitle.text = solution.name
+                tvTitle.text = solution.quizName
                 tvSubject.text = solution.subject
                 tvScore.text = "${solution.solutionInfo?.score} / ${solution.solutionInfo?.maxScore}"
             }

@@ -1,6 +1,6 @@
 package com.example.quizapp.retrofit
 
-import com.example.quizapp.dto.*
+import com.example.quizapp.models.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -9,7 +9,6 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface TutorService {
-
 
     @POST("/tutor/createSubject/{subjectName}")
     suspend fun createSubject(@Path("subjectName") subjectName: String): Boolean

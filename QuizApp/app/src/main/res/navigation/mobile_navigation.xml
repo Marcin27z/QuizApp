@@ -45,6 +45,9 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_loginFragment_to_solutionsListStudentFragment2"
+            app:destination="@id/solutionsListStudentFragment2" />
     </fragment>
     <navigation
         android:id="@+id/tutorNavigation"
@@ -212,6 +215,9 @@
             <argument
                 android:name="quizName"
                 app:argType="string" />
+            <action
+                android:id="@+id/action_questionFragment_to_homeStudentFragment"
+                app:destination="@id/homeStudentFragment" />
         </fragment>
         <fragment
             android:id="@+id/resultFragment"
@@ -242,5 +248,9 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/solutionsListStudentFragment2"
+        android:name="com.example.quizapp.ui.solutions.student.SolutionsListStudentFragment"
+        android:label="SolutionsListStudentFragment" />
 
 </navigation>

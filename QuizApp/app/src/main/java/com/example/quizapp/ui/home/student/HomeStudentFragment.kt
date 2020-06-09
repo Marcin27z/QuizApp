@@ -42,6 +42,7 @@ class HomeStudentFragment : DaggerFragment() {
             findNavController().navigate(HomeStudentFragmentDirections.actionHomeStudentFragmentToSubjectListStudentFragment())
         }
         root.logOut.setOnClickListener {
+            viewModel.clearDatabase()
             viewModel.unsubscribeFromSubjects()
             findNavController().navigate(HomeStudentFragmentDirections.actionHomeStudentFragmentToLoginFragment(false, null, null))
         }
@@ -56,6 +57,7 @@ class HomeStudentFragment : DaggerFragment() {
         args.quiz?.let {
             findNavController().navigate(HomeStudentFragmentDirections.actionHomeStudentFragmentToQuestionFragment(it))
         }
+        viewModel.fetchResults()
         return root
     }
 }

@@ -8,8 +8,7 @@ import android.widget.Filterable
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quizapp.R
-import com.example.quizapp.dto.QuizInfo
-import com.example.quizapp.dto.SolutionInfo
+import com.example.quizapp.models.SolutionInfo
 import kotlinx.android.synthetic.main.solution_tutor_recycler_item.view.*
 
 class SolutionsListTutorAdapter(private val solutionsList: List<SolutionInfo>): RecyclerView.Adapter<SolutionTutorViewHolder>(),

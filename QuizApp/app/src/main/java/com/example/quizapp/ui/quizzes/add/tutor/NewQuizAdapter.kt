@@ -6,7 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quizapp.R
-import com.example.quizapp.dto.Question
+import com.example.quizapp.models.Question
 import kotlinx.android.synthetic.main.question_item.view.*
 
 class NewQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

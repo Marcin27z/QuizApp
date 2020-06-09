@@ -3,16 +3,18 @@ package com.example.quizapp.ui.home.student
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.quizapp.dto.SubjectInfo
+import androidx.lifecycle.viewModelScope
+import com.example.quizapp.models.SubjectInfo
+import com.example.quizapp.repository.Repository
 import com.example.quizapp.retrofit.CommonService
-import com.example.quizapp.retrofit.ServiceGenerator
 import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class HomeStudentViewModel @Inject constructor(private val commonService: CommonService): ViewModel() {
+class HomeStudentViewModel @Inject constructor(private val repository: Repository): ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
@@ -20,7 +22,7 @@ class HomeStudentViewModel @Inject constructor(private val commonService: Common
     val text: LiveData<String> = _text
 
     fun subscribeToSubjects() {
-        val call = commonService.getSubjects()
+        val call = repository.getSubjects()
         call.enqueue(object : Callback<List<SubjectInfo>?> {
 
             override fun onResponse(
@@ -48,7 +50,7 @@ class HomeStudentViewModel @Inject constructor(private val commonService: Common
     }
 
     fun unsubscribeFromSubjects() {
-        val call = commonService.getSubjects()
+        val call = repository.getSubjects()
         call.enqueue(object : Callback<List<SubjectInfo>?> {
 
             override fun onResponse(
@@ -73,5 +75,17 @@ class HomeStudentViewModel @Inject constructor(private val commonService: Common
 
             }
         })
+    }
+
+    fun clearDatabase() {
+        viewModelScope.launch {
+            repository.clearDatabase()
+        }
+    }
+
+    fun fetchResults() {
+        viewModelScope.launch {
+            repository.fetchSolvedQuizzesInfo()
+        }
     }
 }

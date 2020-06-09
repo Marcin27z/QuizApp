@@ -1,7 +1,6 @@
 package com.example.quizapp.ui.quizzes.add.tutor
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +16,8 @@ import com.example.quizapp.MainActivity
 
 import com.example.quizapp.R
 import com.example.quizapp.closeKeyboard
-import com.example.quizapp.dto.Question
-import com.example.quizapp.dto.QuizDto
+import com.example.quizapp.models.Question
+import com.example.quizapp.models.QuizDto
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.add_quiz_tutor_fragment.*

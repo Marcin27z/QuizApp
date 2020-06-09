@@ -3,18 +3,15 @@ package com.example.quizapp.ui.quizzes.list.tutor
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quizapp.MainActivity
 import com.example.quizapp.R
-import com.example.quizapp.dto.QuizInfo
-import com.example.quizapp.ui.login.LoginViewModel
+import com.example.quizapp.models.QuizInfo
 import com.example.quizapp.ui.quizzes.list.QuizzesRecyclerAdapter
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_quizzes_tutor.*
@@ -45,9 +42,7 @@ class QuizzesTutorFragment : DaggerFragment() {
         quizzesViewModel.quizzes.observe(viewLifecycleOwner, Observer {
             root.quizzes_list.adapter =
                 QuizzesRecyclerAdapter(it.map {
-                    QuizInfo().apply {
-                        name = it.name; subject = it.subject
-                    }
+                    QuizInfo(it.name, it.subject)
                 }) { quizName ->
                     findNavController().navigate(
                         QuizzesTutorFragmentDirections.actionQuizzesTutorFragmentToSolutionsListTutorFragment(

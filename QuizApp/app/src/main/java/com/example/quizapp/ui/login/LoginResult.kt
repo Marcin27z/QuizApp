@@ -1,6 +1,6 @@
 package com.example.quizapp.ui.login
 
-import com.example.quizapp.dto.Role
+import com.example.quizapp.models.Role
 
 /**
  * Authentication result : success (user details) or error message.

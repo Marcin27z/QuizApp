@@ -1,4 +1,4 @@
-package com.example.quizapp.dto
+package com.example.quizapp.models
 
 data class UserDto (
     val name: String,

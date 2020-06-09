@@ -30,13 +30,15 @@ class SubjectService {
     return false
   }
 
-  fun subscribeToSubject(subjectName: String, userName: String) {
+  fun subscribeToSubject(subjectName: String, userName: String): Boolean {
     subjectRepository.findByName(subjectName)?.let { subject ->
       userRepository.findByUsername(userName)?.let { user ->
         subject.users.add(user)
       }
       subjectRepository.save(subject)
+      return true
     }
+    return false
   }
 
   fun getUsersSubjects(userName: String): List<Subject> {

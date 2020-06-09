@@ -34,6 +34,7 @@
     <string name="sign_in">Sign in</string>
     <string name="prompt_login">Login</string>
     <string name="prompt_password">Password</string>
+    <string name="results_offline">Results offline</string>
 
     <!-- Home -->
     <string name="quizzes">Quizzes</string>
@@ -47,7 +48,8 @@
     <string name="subject_name">Subject name</string>
     <string name="add">Add</string>
     <string name="create">Create</string>
-
+    <string name="cannot_add_subject">Cannot add subject.</string>
+    <string name="cannot_create_subject">Cannot create subject.</string>
 
     <!-- Add quiz -->
     <string name="correct_answer">Correct answer</string>
@@ -77,4 +79,10 @@
 
     <string name="no_subjects">You have no subjects.\n Please click <b>+</b> to add new subject.</string>
     <string name="network_error">Network error</string>
+
+    <!-- Exit dialog -->
+    <string name="are_you_sure">Are you sure you want to exit? Your result will be submitted and you won\'t be able to take this quiz again.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 </resources>

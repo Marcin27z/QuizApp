@@ -7,7 +7,7 @@ import android.widget.Filterable
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quizapp.R
-import com.example.quizapp.dto.SubjectInfo
+import com.example.quizapp.models.SubjectInfo
 import kotlinx.android.synthetic.main.subject_recycler_item.view.*
 
 class SubjectListAdapter(private val subjectList: List<SubjectInfo>, private val itemListener: SubjectListItemListener): RecyclerView.Adapter<SubjectViewHolder>(),
